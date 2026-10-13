@@ -7,7 +7,7 @@
     <title id="page-title"></title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -29,8 +29,7 @@
                     <h1 class="hero__title" id="hero-title"></h1>
                     <p class="hero__description" id="hero-description"></p>
                     <div class="hero__cta">
-                        <a href="#" class="btn btn--primary" id="hero-cta-primary">View Works</a>
-                        <a href="#" class="btn btn--secondary" id="hero-cta-secondary">Download CV</a>
+                        <a href="#" class="btn btn--primary" id="hero-cta-primary">View Projects</a>
                     </div>
                     <div class="hero__social" id="hero-social"></div>
                 </div>
@@ -43,20 +42,40 @@
         <section class="expertise" id="expertise">
             <div class="container">
                 <header class="section-header">
-                    <h2 class="section-title" id="expertise-title">My Expertise</h2>
-                    <p class="section-subtitle" id="expertise-subtitle">What I do best</p>
+                    <h2 class="section-title" id="expertise-title">Skills &amp; Expertise</h2>
+                    <p class="section-subtitle" id="expertise-subtitle">What I know</p>
                 </header>
                 <div class="expertise__grid" id="expertise-grid"></div>
+            </div>
+        </section>
+
+        <section class="education" id="education">
+            <div class="container">
+                <header class="section-header">
+                    <h2 class="section-title" id="education-title">Education</h2>
+                    <p class="section-subtitle" id="education-subtitle">My academic background</p>
+                </header>
+                <div class="education__list" id="education-list"></div>
             </div>
         </section>
 
         <section class="works" id="works">
             <div class="container">
                 <header class="section-header">
-                    <h2 class="section-title" id="works-title">My Works</h2>
-                    <p class="section-subtitle" id="works-subtitle">Selected projects</p>
+                    <h2 class="section-title" id="works-title">Projects</h2>
+                    <p class="section-subtitle" id="works-subtitle">Things I have built</p>
                 </header>
                 <div class="works__grid" id="works-grid"></div>
+            </div>
+        </section>
+
+        <section class="certificates" id="certificates">
+            <div class="container">
+                <header class="section-header">
+                    <h2 class="section-title" id="certificates-title">Certificates</h2>
+                    <p class="section-subtitle" id="certificates-subtitle">Verified achievements</p>
+                </header>
+                <div class="certificates__list" id="certificates-list"></div>
             </div>
         </section>
 
@@ -65,68 +84,35 @@
                 <div class="about__content">
                     <header class="section-header section-header--left">
                         <h2 class="section-title" id="about-title">About Me</h2>
-                        <p class="section-subtitle" id="about-subtitle">Get to know me better</p>
+                        <p class="section-subtitle" id="about-subtitle">Get to know me</p>
                     </header>
                     <div class="about__intro" id="about-intro"></div>
                     <blockquote class="about__quote" id="about-quote"></blockquote>
-                    
+
                     <div class="about__skills" id="about-skills">
-                        <h3 class="about__skills-title" id="skills-title">Skills</h3>
-                        <div class="skills__bars" id="skills-bars"></div>
+                        <h3 class="about__skills-title" id="skills-title">Technical Skills</h3>
+                        <div class="skills__tags" id="skills-bars"></div>
                     </div>
-                    
+
                     <div class="about__tools" id="about-tools">
-                        <h3 class="about__tools-title" id="tools-title">Tools</h3>
+                        <h3 class="about__tools-title" id="tools-title">Tools I Use</h3>
                         <div class="tools__list" id="tools-list"></div>
                     </div>
                 </div>
                 <div class="about__info">
                     <div class="info-card" id="info-design-for">
-                        <span class="info-card__label">Design For</span>
+                        <span class="info-card__label">Focus</span>
                         <span class="info-card__value" id="info-design-for-value"></span>
-                    </div>
-                    <div class="info-card" id="info-phone">
-                        <span class="info-card__label">Phone</span>
-                        <a href="tel:" class="info-card__value" id="info-phone-value"></a>
                     </div>
                     <div class="info-card" id="info-email">
                         <span class="info-card__label">Email</span>
                         <a href="mailto:" class="info-card__value" id="info-email-value"></a>
                     </div>
+                    <div class="info-card" id="info-location">
+                        <span class="info-card__label">Address</span>
+                        <span class="info-card__value" id="info-location-value"></span>
+                    </div>
                 </div>
-            </div>
-        </section>
-
-        <section class="testimonials" id="testimonials">
-            <div class="container">
-                <header class="section-header">
-                    <h2 class="section-title" id="testimonials-title">Client Testimonial</h2>
-                    <p class="section-subtitle" id="testimonials-subtitle">What clients say</p>
-                </header>
-                <div class="testimonials__slider" id="testimonials-slider">
-                    <div class="testimonials__track" id="testimonials-track"></div>
-                    <button class="testimonials__nav testimonials__nav--prev" aria-label="Previous testimonial" id="testimonial-prev">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="15 18 9 12 15 6"></polyline>
-                        </svg>
-                    </button>
-                    <button class="testimonials__nav testimonials__nav--next" aria-label="Next testimonial" id="testimonial-next">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="9 18 15 12 9 6"></polyline>
-                        </svg>
-                    </button>
-                </div>
-                <div class="testimonials__dots" id="testimonials-dots"></div>
-            </div>
-        </section>
-
-        <section class="news" id="news">
-            <div class="container">
-                <header class="section-header">
-                    <h2 class="section-title" id="news-title">Latest News</h2>
-                    <p class="section-subtitle" id="news-subtitle">Recent updates</p>
-                </header>
-                <div class="news__grid" id="news-grid"></div>
             </div>
         </section>
     </main>

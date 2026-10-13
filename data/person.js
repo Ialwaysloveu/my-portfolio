@@ -1,62 +1,71 @@
 const personData = {
     brand: {
         logoText: "Angelo.",
-        pageTitle: "Angelo Salivio"
+        pageTitle: "Angelo Salivio",
+        metaDescription: "Angelo Salivio - Full-stack web developer. Building clean, performant web applications with modern frameworks."
     },
     hero: {
-        subtitle: "Head of design at Angelo",
+        subtitle: "Creating Web Apps & Exploring AI.",
         title: "Angelo Salivio",
-        description: "I'm a digital product designer based in San Francisco.",
-        photoPath: "assets/person/profile.jpg",
-        ctaPrimaryText: "View Works",
+        description: "Computer Science student who enjoys building web apps and learning about AI, machine learning, and new technologies.",
+        photoPath: "assets/person/profile.png",
+        ctaPrimaryText: "View Work",
         ctaPrimaryLink: "#works",
-        ctaSecondaryText: "Download CV",
-        ctaSecondaryLink: "#"
-    },
-    contact: {
-        designFor: "Web & Mobile",
-        phone: "+1 (234) 567 890",
-        email: "hello@calvino.com"
-    },
-    navLinks: [
-        { text: "Home", url: "#hero" },
-        { text: "Expertise", url: "#expertise" },
-        { text: "Works", url: "#works" },
-        { text: "About", url: "#about" }
-    ],
-    expertise: [
-        { title: "UI/UX Design", description: "Creating beautiful and functional interfaces.", linkText: "Learn more", iconPath: "assets/person/icon-ux.svg" },
-        { title: "Web Development", description: "Building modern and responsive websites.", linkText: "Learn more", iconPath: "assets/person/icon-web.svg" }
-    ],
-    works: [
-        { title: "Project Alpha", imagePath: "assets/person/work1.jpg" },
-        { title: "Project Beta", imagePath: "assets/person/work2.jpg" }
-    ],
-    about: {
-        intro: "Hi, I'm Angelo. I have over 10 years of experience designing for web and mobile.",
-        quote: "Design is not just what it looks like and feels like. Design is how it works.",
-        skills: [
-            { label: "Figma", percentage: 95 },
-            { label: "HTML/CSS", percentage: 90 },
-            { label: "JavaScript", percentage: 80 }
-        ],
-        tools: [
-            { name: "Figma", iconPath: "assets/person/tool-figma.svg" },
-            { name: "VS Code", iconPath: "assets/person/tool-vscode.svg" }
+        socialLinks: [
+            { platform: "GitHub", url: "https://github.com/Ialwaysloveu", iconPath: "assets/person/full256.png" }
         ]
     },
-    testimonials: [
-        { quote: "Angelo is a fantastic designer who always delivers on time.", name: "Jane Doe", role: "CEO, TechCorp", avatarPath: "assets/person/avatar1.jpg" }
+    contact: {
+        focus: "Full-Stack Development & AI/ML",
+        email: "angelosalivio@gmail.com",
+        location: "Naval, Biliran, Castin St."
+    },
+    navLinks: [
+        { text: "Home", url: "#hero", iconPath: "assets/person/nav-home.svg" },
+        { text: "Expertise", url: "#expertise", iconPath: "assets/person/nav-expertise.svg" },
+        { text: "Education", url: "#education", iconPath: "assets/person/nav-education.svg" },
+        { text: "Work", url: "#works", iconPath: "assets/person/nav-work.svg" },
+        { text: "Certificates", url: "#certificates", iconPath: "assets/person/nav-certificates.svg" },
+        { text: "About", url: "#about", iconPath: "assets/person/nav-about.svg" }
     ],
-    news: [
-        { title: "Design Trends 2026", tag: "Design", date: "Oct 10, 2026", author: "Angelo", imagePath: "assets/person/news1.jpg" }
+    expertise: [
+        { title: "Front-End Development", description: "Building responsive, performant web applications with React, Next.js, and TypeScript.", linkText: "See projects", iconPath: "assets/person/icon-development.svg" },
+        { title: "AI & Machine Learning", description: "Developing deep learning models with TensorFlow and Python, specializing in computer vision and image classification.", linkText: "See research", iconPath: "assets/person/icon-design.svg" },
+        { title: "Full-Stack Development", description: "Building end-to-end web applications with modern frameworks and clean, scalable code.", linkText: "View work", iconPath: "assets/person/icon-system.svg" }
+    ],
+    education: [
+        { degree: "B.A. Computer Science", institution: "Biliran Province State University", date: "2023 - 2027" }
+    ],
+    works: [
+        { title: "AI Waste Classification System", description: "A CNN-based approach for automated waste type classification using deep learning. Trained and evaluated 5 CNN architectures (Xception, MobileNetV2, InceptionV3, DenseNet, AlexNet) on 6,000 images across 12 waste categories. Xception achieved 91.7% accuracy, demonstrating potential for smart recycling bins and automated sorting systems.", imagePath: "assets/person/work-waste.jpg", tech: ["Python", "TensorFlow", "CNN", "Xception", "MobileNetV2"] }
+    ],
+    about: {
+        intro: "Hi, I'm Angelo Salivio, a Computer Science student from Naval, Biliran. I enjoy building responsive web applications and exploring AI and machine learning to solve real-world problems. I'm always eager to learn new technologies and create solutions that make a positive impact.",
+        quote: "Build with purpose. Every line of code and every design choice should solve a real problem.",
+        skills: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Next.js", "Node.js", "Python", "TensorFlow", "Tailwind CSS", "Design Motion Principles", "Design Taste"],
+        tools: [
+            { name: "Figma", iconPath: "assets/person/tool-figma.svg" },
+            { name: "VS Code", iconPath: "assets/person/tool-vscode.svg" },
+            { name: "Framer", iconPath: "assets/person/tool-framer.svg" }
+        ]
+    },
+    certificates: [
+        { title: "Class of 2026 Certificate", issuer: "Biliran Province State University", date: "2026", url: "assets/person/cert-classof2026.pdf" },
+        { title: "Networking Basics Certificate", issuer: "Coursera", date: "2024", url: "assets/person/cert-networking.pdf" }
     ],
     footer: {
-        blurb: "Let's create something amazing together.",
+        blurb: "Let's build something extraordinary together.",
         copyright: "© 2026 Angelo Salivio. All rights reserved.",
+        navLinks: [
+            { text: "Home", url: "#hero" },
+            { text: "Work", url: "#works" },
+            { text: "About", url: "#about" },
+            { text: "Contact", url: "mailto:angelosalivio@gmail.com" }
+        ],
         socialLinks: [
-            { platform: "Twitter", url: "#" },
-            { platform: "LinkedIn", url: "#" }
+            { platform: "GitHub", url: "https://github.com/Ialwaysloveu", iconPath: "assets/person/full256.png" }
         ]
     }
 };
+
+module.exports = personData;

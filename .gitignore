@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# IDE / Editor
+.vscode/
+.idea/
+
+# Vercel
+.vercel/
+
+# Agent & Session logs
+.kilo/
+session-*.md
+
+# System files
+.DS_Store
+Thumbs.db
