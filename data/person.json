@@ -1,4 +1,5 @@
-{"brand": {
+{
+  "brand": {
     "logoText": "Angelo.",
     "pageTitle": "Angelo Salivio",
     "metaDescription": "Angelo Salivio - Full-stack web developer. Building clean, performant web applications with modern frameworks."
@@ -11,7 +12,11 @@
     "ctaPrimaryText": "View Work",
     "ctaPrimaryLink": "#works",
     "socialLinks": [
-      { "platform": "GitHub", "url": "https://github.com/Ialwaysloveu", "iconPath": "assets/person/full256.png" }
+      {
+        "platform": "GitHub",
+        "url": "https://github.com/Ialwaysloveu",
+        "iconPath": "assets/person/full256.png"
+      }
     ]
   },
   "contact": {
@@ -20,47 +25,135 @@
     "location": "Naval, Biliran, Castin St."
   },
   "navLinks": [
-    { "text": "Home", "url": "#hero", "iconPath": "assets/person/nav-home.svg" },
-    { "text": "Expertise", "url": "#expertise", "iconPath": "assets/person/nav-expertise.svg" },
-    { "text": "Education", "url": "#education", "iconPath": "assets/person/nav-education.svg" },
-    { "text": "Work", "url": "#works", "iconPath": "assets/person/nav-work.svg" },
-    { "text": "Certificates", "url": "#certificates", "iconPath": "assets/person/nav-certificates.svg" },
-    { "text": "About", "url": "#about", "iconPath": "assets/person/nav-about.svg" }
+    {
+      "text": "Home",
+      "url": "#hero",
+      "iconPath": "assets/person/nav-home.svg"
+    },
+    {
+      "text": "Expertise",
+      "url": "#expertise",
+      "iconPath": "assets/person/nav-expertise.svg"
+    },
+    {
+      "text": "Education",
+      "url": "#education",
+      "iconPath": "assets/person/nav-education.svg"
+    },
+    {
+      "text": "Work",
+      "url": "#works",
+      "iconPath": "assets/person/nav-work.svg"
+    },
+    {
+      "text": "Certificates",
+      "url": "#certificates",
+      "iconPath": "assets/person/nav-certificates.svg"
+    },
+    {
+      "text": "About",
+      "url": "#about",
+      "iconPath": "assets/person/nav-about.svg"
+    }
   ],
   "expertise": [
-    { "title": "Front-End Development", "description": "Building responsive, performant web applications with React, Next.js, and TypeScript.", "iconPath": "assets/person/icon-development.svg" },
-    { "title": "AI & Machine Learning", "description": "Developing deep learning models with TensorFlow and Python, specializing in computer vision and image classification.", "iconPath": "assets/person/icon-design.svg" },
-    { "title": "Full-Stack Development", "description": "Building end-to-end web applications with modern frameworks and clean, scalable code.", "iconPath": "assets/person/icon-system.svg" }
+    {
+      "title": "Front-End Development",
+      "description": "Building responsive, performant web applications with React, Next.js, and TypeScript.",
+      "iconPath": "assets/person/icon-development.svg"
+    },
+    {
+      "title": "AI & Machine Learning",
+      "description": "Developing deep learning models with TensorFlow and Python, specializing in computer vision and image classification.",
+      "iconPath": "assets/person/icon-design.svg"
+    },
+    {
+      "title": "Full-Stack Development",
+      "description": "Building end-to-end web applications with modern frameworks and clean, scalable code.",
+      "iconPath": "assets/person/icon-system.svg"
+    }
   ],
   "education": [
-    { "degree": "B.A. Computer Science", "institution": "Biliran Province State University", "date": "2023 - 2027" }
+    {
+      "degree": "B.A. Computer Science",
+      "institution": "Biliran Province State University",
+      "date": "2023 - 2027"
+    }
   ],
   "works": [
-    { "title": "AI Waste Classification System", "description": "A CNN-based approach for automated waste type classification using deep learning. Trained and evaluated 5 CNN architectures (Xception, MobileNetV2, InceptionV3, DenseNet, AlexNet) on 6,000 images across 12 waste categories. Xception achieved 91.7% accuracy, demonstrating potential for smart recycling bins and automated sorting systems.", "imagePath": "assets/person/work-waste.jpg", "tech": ["Python", "TensorFlow", "CNN", "Xception", "MobileNetV2"] }
+    {
+      "title": "AI Waste Classification System",
+      "description": "A CNN-based approach for automated waste type classification using deep learning. Trained and evaluated 5 CNN architectures (Xception, MobileNetV2, InceptionV3, DenseNet, AlexNet) on 6,000 images across 12 waste categories. Xception achieved 91.7% accuracy, demonstrating potential for smart recycling bins and automated sorting systems.",
+      "imagePath": "assets/person/work-waste.jpg",
+      "tech": [
+        "Python",
+        "TensorFlow",
+        "CNN",
+        "Xception",
+        "MobileNetV2"
+      ]
+    }
   ],
   "about": {
     "intro": "Hi, I'm Angelo Salivio, a Computer Science student from Naval, Biliran. I enjoy building responsive web applications and exploring AI and machine learning to solve real-world problems. I'm always eager to learn new technologies and create solutions that make a positive impact.",
     "quote": "Build with purpose. Every line of code and every design choice should solve a real problem.",
-> theirs
     "tools": [
-      { "name": "VS Code", "iconPath": "assets/person/tool-vscode.svg" }
+      {
+        "name": "VS Code",
+        "iconPath": "assets/person/tool-vscode.svg"
+      }
+    ],
+    "skills": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "JAVA",
+      "Python",
+      "Php",
+      "TensorFlow"
     ]
   },
   "certificates": [
-    { "title": "Class of 2026 Certificate", "issuer": "Biliran Province State University", "date": "2026", "url": "assets/person/cert-classof2026.pdf" },
-    { "title": "Networking Basics Certificate", "issuer": "Coursera", "date": "2024", "url": "assets/person/cert-networking.pdf" }
+    {
+      "title": "Class of 2026 Certificate",
+      "issuer": "Biliran Province State University",
+      "date": "2026",
+      "url": "assets/person/cert-classof2026.pdf"
+    },
+    {
+      "title": "Networking Basics Certificate",
+      "issuer": "Coursera",
+      "date": "2024",
+      "url": "assets/person/cert-networking.pdf"
+    }
   ],
   "footer": {
     "blurb": "Let's build something extraordinary together.",
-    "copyright": "?? 2026 Angelo Salivio. All rights reserved.",
+    "copyright": "© 2026 Angelo Salivio. All rights reserved.",
     "navLinks": [
-      { "text": "Home", "url": "#hero" },
-      { "text": "Work", "url": "#works" },
-      { "text": "About", "url": "#about" },
-      { "text": "Contact", "url": "mailto:angelosalivio@gmail.com" }
+      {
+        "text": "Home",
+        "url": "#hero"
+      },
+      {
+        "text": "Work",
+        "url": "#works"
+      },
+      {
+        "text": "About",
+        "url": "#about"
+      },
+      {
+        "text": "Contact",
+        "url": "mailto:angelosalivio@gmail.com"
+      }
     ],
     "socialLinks": [
-      { "platform": "GitHub", "url": "https://github.com/Ialwaysloveu", "iconPath": "assets/person/full256.png" }
+      {
+        "platform": "GitHub",
+        "url": "https://github.com/Ialwaysloveu",
+        "iconPath": "assets/person/full256.png"
+      }
     ]
   }
 }
