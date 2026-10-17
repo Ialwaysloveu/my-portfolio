@@ -12,7 +12,7 @@ const personData = {
         ctaPrimaryText: "View Work",
         ctaPrimaryLink: "#works",
         socialLinks: [
-            { platform: "GitHub", url: "https://github.com/AngeloSalivio", iconPath: "assets/person/full256.png" }
+            { platform: "GitHub", url: "https://github.com/Ialwaysloveu", iconPath: "assets/person/full256.png" }
         ]
     },
     contact: {
@@ -62,7 +62,7 @@ const personData = {
             { text: "Contact", url: "mailto:angelosalivio@gmail.com" }
         ],
         socialLinks: [
-            { platform: "GitHub", url: "https://github.com/AngeloSalivio", iconPath: "assets/person/full256.png" }
+            { platform: "GitHub", url: "https://github.com/Ialwaysloveu", iconPath: "assets/person/full256.png" }
         ]
     }
 };
