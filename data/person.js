@@ -12,7 +12,7 @@ const personData = {
         ctaPrimaryText: "View Work",
         ctaPrimaryLink: "#works",
         socialLinks: [
-            { platform: "GitHub", url: "https://github.com/Ialwaysloveu", iconPath: "assets/person/full256.png" }
+            { platform: "GitHub", url: "https://github.com/AngeloSalivio", iconPath: "assets/person/full256.png" }
         ]
     },
     contact: {
@@ -42,11 +42,10 @@ const personData = {
     about: {
         intro: "Hi, I'm Angelo Salivio, a Computer Science student from Naval, Biliran. I enjoy building responsive web applications and exploring AI and machine learning to solve real-world problems. I'm always eager to learn new technologies and create solutions that make a positive impact.",
         quote: "Build with purpose. Every line of code and every design choice should solve a real problem.",
-        skills: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Next.js", "Node.js", "Python", "TensorFlow", "Tailwind CSS", "Design Motion Principles", "Design Taste"],
+        skills: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Next.js", "Node.js", "Python", "TensorFlow", "Java"],
         tools: [
             { name: "Figma", iconPath: "assets/person/tool-figma.svg" },
-            { name: "VS Code", iconPath: "assets/person/tool-vscode.svg" },
-            { name: "Framer", iconPath: "assets/person/tool-framer.svg" }
+            { name: "VS Code", iconPath: "assets/person/tool-vscode.svg" }
         ]
     },
     certificates: [
@@ -63,7 +62,7 @@ const personData = {
             { text: "Contact", url: "mailto:angelosalivio@gmail.com" }
         ],
         socialLinks: [
-            { platform: "GitHub", url: "https://github.com/Ialwaysloveu", iconPath: "assets/person/full256.png" }
+            { platform: "GitHub", url: "https://github.com/AngeloSalivio", iconPath: "assets/person/full256.png" }
         ]
     }
 };
