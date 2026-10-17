@@ -42,7 +42,7 @@ const personData = {
     about: {
         intro: "Hi, I'm Angelo Salivio, a Computer Science student from Naval, Biliran. I enjoy building responsive web applications and exploring AI and machine learning to solve real-world problems. I'm always eager to learn new technologies and create solutions that make a positive impact.",
         quote: "Build with purpose. Every line of code and every design choice should solve a real problem.",
-        skills: ["agent writing","architecture","automation","clarification","coordination","dashboards","debugging","diff analysis","documentation","domain analysis","domain modeling","figma analysis","frontend design","git safety","handoff","icon suggestions","implementation","interviewing","iteration","knowledge extraction","knowledge graphs","migration","onboarding","planning","questionnaires","research","retrospectives","scaffolding","skill setup","spec writing","task observation","teaching","test-driven development","ticket creation","triage","typescript","writing"],
+        skills: [" agent writing,architecture,automation,clarification,coordination,dashboards,debugging,diff analysis,documentation,domain analysis,domain modeling,igma analysis,rontend design,git safety,handoff,icon suggestions,implementation,interviewing,iteration,knowledge extraction,knowledge graphs,migration,onboarding,planning,questionnaires,esearch,etrospectives,scaffolding,skill setup,spec writing,	ask observation,	eaching,	est-driven development,	icket creation,	riage,	ypescript,writing],
         tools: [
             { name: "Figma", iconPath: "assets/person/tool-figma.svg" },
             { name: "VS Code", iconPath: "assets/person/tool-vscode.svg" }
