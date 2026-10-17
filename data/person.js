@@ -1,4 +1,4 @@
-const personData = {
+﻿const personData = {
     brand: {
         logoText: "Angelo.",
         pageTitle: "Angelo Salivio",
@@ -12,7 +12,7 @@ const personData = {
         ctaPrimaryText: "View Work",
         ctaPrimaryLink: "#works",
         socialLinks: [
-            { platform: "GitHub", url: "https://github.com/Ialwaysloveu", iconPath: "assets/person/full256.png" }
+            { platform: "GitHub", url: "https://github.com/AngeloSalivio", iconPath: "assets/person/full256.png" }
         ]
     },
     contact: {
@@ -42,7 +42,7 @@ const personData = {
     about: {
         intro: "Hi, I'm Angelo Salivio, a Computer Science student from Naval, Biliran. I enjoy building responsive web applications and exploring AI and machine learning to solve real-world problems. I'm always eager to learn new technologies and create solutions that make a positive impact.",
         quote: "Build with purpose. Every line of code and every design choice should solve a real problem.",
-        skills: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Next.js", "Node.js", "Python", "TensorFlow", "Tailwind CSS", "Design Motion Principles", "Design Taste"],
+        skills: ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Next.js", "Node.js", "Python", "TensorFlow", "Tailwind CSS", "Design Motion Principles", "Design Taste", "Test-Driven Development", "Code Review", "Debugging", "Git Best Practices", "Pull Request Workflow", "Prototyping", "Knowledge Graphs", "Codebase Design", "Domain Modeling", "Research", "Security Review", "Code Understanding", "Task Observation", "Reverse Engineering"],
         tools: [
             { name: "Figma", iconPath: "assets/person/tool-figma.svg" },
             { name: "VS Code", iconPath: "assets/person/tool-vscode.svg" },
@@ -55,7 +55,7 @@ const personData = {
     ],
     footer: {
         blurb: "Let's build something extraordinary together.",
-        copyright: "© 2026 Angelo Salivio. All rights reserved.",
+        copyright: "Â© 2026 Angelo Salivio. All rights reserved.",
         navLinks: [
             { text: "Home", url: "#hero" },
             { text: "Work", url: "#works" },
@@ -63,7 +63,7 @@ const personData = {
             { text: "Contact", url: "mailto:angelosalivio@gmail.com" }
         ],
         socialLinks: [
-            { platform: "GitHub", url: "https://github.com/Ialwaysloveu", iconPath: "assets/person/full256.png" }
+            { platform: "GitHub", url: "https://github.com/AngeloSalivio", iconPath: "assets/person/full256.png" }
         ]
     }
 };
