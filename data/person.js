@@ -1,4 +1,4 @@
-const personData = {
+﻿onst personData = {
     brand: {
         logoText: "Angelo.",
         pageTitle: "Angelo Salivio",
@@ -40,9 +40,8 @@ const personData = {
         { title: "AI Waste Classification System", description: "A CNN-based approach for automated waste type classification using deep learning. Trained and evaluated 5 CNN architectures (Xception, MobileNetV2, InceptionV3, DenseNet, AlexNet) on 6,000 images across 12 waste categories. Xception achieved 91.7% accuracy, demonstrating potential for smart recycling bins and automated sorting systems.", imagePath: "assets/person/work-waste.jpg", tech: ["Python", "TensorFlow", "CNN", "Xception", "MobileNetV2"] }
     ],
     about: {
-        intro: "Hi, I'm Angelo Salivio, a Computer Science student from Naval, Biliran. I enjoy building responsive web applications and exploring AI and machine learning to solve real-world problems. I'm always eager to learn new technologies and create solutions that make a positive impact.",
+        intro: "Hi, I'm Angelo Salivio, a Computer Science student at BiPSU. I enjoy building websites, learning new technologies, and exploring AI. I like creating projects that solve real-world problems and make a difference.",
         quote: "Build with purpose. Every line of code and every design choice should solve a real problem.",
-> theirs
         tools: [
             { name: "Figma", iconPath: "assets/person/tool-figma.svg" },
             { name: "VS Code", iconPath: "assets/person/tool-vscode.svg" }
@@ -54,7 +53,7 @@ const personData = {
     ],
     footer: {
         blurb: "Let's build something extraordinary together.",
-        copyright: "© 2026 Angelo Salivio. All rights reserved.",
+        copyright: "Â© 2026 Angelo Salivio. All rights reserved.",
         navLinks: [
             { text: "Home", url: "#hero" },
             { text: "Work", url: "#works" },
