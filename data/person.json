@@ -43,7 +43,6 @@
     "quote": "Build with purpose. Every line of code and every design choice should solve a real problem.",
 > theirs
     "tools": [
-      { "name": "Figma", "iconPath": "assets/person/tool-figma.svg" },
       { "name": "VS Code", "iconPath": "assets/person/tool-vscode.svg" }
     ]
   },
