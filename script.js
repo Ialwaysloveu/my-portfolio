@@ -14,26 +14,25 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (personData.brand.metaDescription) {
         document.getElementById('meta-description').setAttribute('content', personData.brand.metaDescription);
     }
-    document.getElementById('nav-logo').textContent = personData.brand.logoText;
+    document.getElementById('top-bar-logo').textContent = personData.brand.logoText;
     document.getElementById('footer-logo').textContent = personData.brand.logoText;
 
-    // Nav Links
-    const navList = document.getElementById('nav-list');
-    if (navList) {
+    // Nav dock links
+    const navDockList = document.getElementById('nav-dock-list');
+    if (navDockList) {
         personData.navLinks.forEach(link => {
             const li = document.createElement('li');
-            li.className = 'nav__item';
+            li.className = 'nav-dock__item';
             const isActive = window.location.hash === link.url;
             const iconName = link.iconPath.split('/').pop().replace('.svg', '').replace('nav-', '');
             const shortLabel = link.shortText || link.text;
             li.innerHTML = `
-                <a href="${link.url}" class="nav__link" aria-current="${isActive ? 'page' : 'false'}">
+                <a href="${link.url}" class="nav-dock__link" aria-current="${isActive ? 'page' : 'false'}" aria-label="${link.text}">
                     ${navIconSVG(iconName)}
-                    <span class="nav__label nav__label--full">${link.text}</span>
-                    <span class="nav__label nav__label--short">${shortLabel}</span>
+                    <span class="nav-dock__label">${shortLabel}</span>
                 </a>
             `;
-            navList.appendChild(li);
+            navDockList.appendChild(li);
         });
     }
 
@@ -249,7 +248,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 // Social icon inline SVGs (48x48 tap targets, accessible)
 function socialSVG(platform) {
     if (platform === 'GitHub') {
-        return '<svg width="48" height="48" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" fill-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-4-4V8l4-4 4 4v4l-4 4zm6-6h-4v-4c0-2.21-1.79-4-4-4S8 9.79 8 12v4H4c-.55 0-1 .45-1 1 0 .93.71 1.93 1.64 2.25.58.21 1.24.34 1.94.34h12c.7 0 1.36-.13 1.94-.34A1.999 1.999 0 0 0 22 13c0-.55-.45-1-1-1z"/></svg>';
+        return '<svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M10.226 17.284c-2.965-.36-5.054-2.493-5.054-5.256 0-1.123.404-2.336 1.078-3.144-.292-.741-.247-2.314.09-2.965.898-.112 2.111.36 2.83 1.01.853-.269 1.752-.404 2.853-.404 1.1 0 1.999.135 2.807.382.696-.629 1.932-1.1 2.83-.988.315.606.36 2.179.067 2.942.72.854 1.101 2 1.101 3.167 0 2.763-2.089 4.852-5.098 5.234.763.494 1.28 1.572 1.28 2.807v2.336c0 .674.561 1.056 1.235.786 4.066-1.55 7.255-5.615 7.255-10.646C23.5 6.188 18.334 1 11.978 1 5.62 1 .5 6.188.5 12.545c0 4.986 3.167 9.12 7.435 10.669.606.225 1.19-.18 1.19-.786V20.63a2.9 2.9 0 0 1-1.078.224c-1.483 0-2.359-.808-2.987-2.313-.247-.607-.517-.966-1.034-1.033-.27-.023-.359-.135-.359-.27 0-.27.45-.471.898-.471.652 0 1.213.404 1.797 1.235.45.651.921.943 1.483.943.561 0 .92-.202 1.437-.719.382-.381.674-.718.944-.943"/></svg>';
     }
     if (platform === 'Email') {
         return '<svg width="48" height="48" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>';
@@ -346,37 +345,35 @@ document.querySelectorAll('.section-header, .expertise__card, .education__item, 
 
 // Highlight current section while scrolling using IntersectionObserver
 const sections = document.querySelectorAll('section[id]');
-const navLinks = document.querySelectorAll('.nav__link');
+const navLinks = document.querySelectorAll('.nav-dock__link');
+const header = document.getElementById('header');
 let isScrolling = false;
 let scrollEndTimer;
 
 // Single source of truth: aria-current="page" only (no separate .active class)
-function setActiveLink(id) {
+function setActive(id) {
     navLinks.forEach(link => {
         link.removeAttribute('aria-current');
     });
-    const active = document.querySelector(`.nav__link[href="#${id}"]`);
+    const active = document.querySelector(`.nav-dock__link[href="#${id}"]`);
     if (active) {
         active.setAttribute('aria-current', 'page');
     }
 }
 
-// Find the section whose top is closest to the top of the viewport (below the header)
+// Find the section whose top is closest to the top of the viewport below the header
 function findActiveSection() {
-    const header = document.getElementById('header');
-    const headerHeight = header ? header.offsetHeight : 64;
+    const headerHeight = header ? header.offsetHeight : 56;
     let closest = null;
     let closestDist = Infinity;
     sections.forEach((section) => {
         const rect = section.getBoundingClientRect();
-        // section top is at or just below the top of viewport (accounting for header)
         const dist = rect.top - headerHeight;
         if (dist >= -headerHeight && dist < closestDist) {
             closestDist = dist;
             closest = section.id;
         }
     });
-    // Fallback: at very top, Home is active; at very bottom, last section is active
     if (!closest && sections.length > 0) {
         const first = sections[0].id;
         const last = sections[sections.length - 1].id;
@@ -390,12 +387,12 @@ function findActiveSection() {
 function onObserverChange() {
     if (isScrolling) return;
     const id = findActiveSection();
-    if (id) setActiveLink(id);
+    if (id) setActive(id);
 }
 
 const navObserver = new IntersectionObserver((entries) => {
     onObserverChange();
-}, { root: null, rootMargin: '-64px 0% -64px 0%', threshold: 0 });
+}, { root: null, rootMargin: '-56px 0% -56px 0%', threshold: 0 });
 
 sections.forEach((section) => {
     navObserver.observe(section);
@@ -403,19 +400,19 @@ sections.forEach((section) => {
 
 // Set initial active link from URL hash
 if (window.location.hash) {
-    setActiveLink(window.location.hash.slice(1));
+    setActive(window.location.hash.slice(1));
 }
 
 // Smooth scroll on nav link click (respects prefers-reduced-motion)
-// Pause the observer during scroll so other icons don't flash
-navList.addEventListener('click', (e) => {
-    const link = e.target.closest('.nav__link');
+// Pause the observer during scroll so icons never flash
+navDockList.addEventListener('click', (e) => {
+    const link = e.target.closest('.nav-dock__link');
     if (!link) return;
     const href = link.getAttribute('href');
     if (href && href.startsWith('#')) {
         e.preventDefault();
         const id = href.slice(1);
-        setActiveLink(id);
+        setActive(id);
         isScrolling = true;
         const target = document.querySelector(href);
         if (target) {
@@ -437,3 +434,18 @@ navList.addEventListener('click', (e) => {
         }
     }
 });
+
+// Top bar background: transparent at top, solid after scroll
+function updateHeaderBg() {
+    if (window.scrollY > 0) {
+        header.classList.add('scrolled');
+    } else {
+        header.classList.remove('scrolled');
+    }
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = max > 0 ? Math.min(window.scrollY / max, 1) : 0;
+    header.style.setProperty('--scroll-progress', progress);
+}
+
+window.addEventListener('scroll', updateHeaderBg, { passive: true });
+updateHeaderBg();
