@@ -140,13 +140,11 @@
     },
     {
       "title": "E-Certificate of Completion",
-      "issuer": "",
       "date": "2025",
       "url": "assets/certificates/E-Certificate of Completion.pdf"
     },
     {
       "title": "E-Certificate",
-      "issuer": "",
       "date": "2025",
       "url": "assets/certificates/E-certificate.pdf"
     }
@@ -160,16 +158,24 @@
         "url": "#hero"
       },
       {
-        "text": "Work",
+        "text": "Projects",
         "url": "#works"
+      },
+      {
+        "text": "Learning",
+        "url": "#expertise"
+      },
+      {
+        "text": "Education",
+        "url": "#education"
+      },
+      {
+        "text": "Certs",
+        "url": "#certificates"
       },
       {
         "text": "About",
         "url": "#about"
-      },
-      {
-        "text": "Contact",
-        "url": "mailto:angelosalivio@gmail.com"
       }
     ],
     "socialLinks": [

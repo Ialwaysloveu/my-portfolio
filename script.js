@@ -24,11 +24,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             const li = document.createElement('li');
             li.className = 'nav-dock__item';
             const isActive = window.location.hash === link.url;
-            const iconName = link.iconPath.split('/').pop().replace('.svg', '').replace('nav-', '');
+            const iconName = link.iconPath ? link.iconPath.split('/').pop().replace('.svg', '').replace('nav-', '') : getDockIconName(link.text);
             const shortLabel = link.shortText || link.text;
             li.innerHTML = `
                 <a href="${link.url}" class="nav-dock__link" aria-current="${isActive ? 'page' : 'false'}" aria-label="${link.text}">
-                    ${navIconSVG(iconName)}
+                    ${getDockIcon(link.text)}
                     <span class="nav-dock__label">${shortLabel}</span>
                 </a>
             `;
@@ -289,6 +289,20 @@ if (platform === 'Email') {
 }
 
 // Inline nav icons (Lucide-style, stroke=currentColor, consistent 2px stroke, 20px size)
+function getDockIconName(text) {
+    if (text.includes('Home')) return 'home';
+    if (text.includes('Project')) return 'work';
+    if (text.includes('Learn')) return 'expertise';
+    if (text.includes('Educ')) return 'education';
+    if (text.includes('Cert')) return 'certificates';
+    if (text.includes('About')) return 'about';
+    return 'home';
+}
+
+function getDockIcon(text) {
+    return navIconSVG(getDockIconName(text));
+}
+
 function navIconSVG(name) {
     const icons = {
         home: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>',
