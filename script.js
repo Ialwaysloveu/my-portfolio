@@ -237,39 +237,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
-// Mobile Nav Toggle
-const navToggle = document.getElementById('nav-toggle');
-const navListEl = document.getElementById('nav-list');
-if (navToggle && navListEl) {
-    navToggle.addEventListener('click', () => {
-        navListEl.classList.toggle('nav__list--open');
-    });
-}
-
-// Close mobile menu on resize if desktop
-window.addEventListener('resize', () => {
-    if (window.innerWidth >= 768 && navListEl) {
-        navListEl.classList.remove('nav__list--open');
-    }
-});
-
-// Header scroll effect
-const header = document.getElementById('header');
-if (header) {
-    window.addEventListener('scroll', () => {
-        header.classList.toggle('scrolled', window.scrollY > 20);
-    });
-}
-
-// Close mobile menu when clicking nav links
-if (navListEl) {
-    navListEl.addEventListener('click', (e) => {
-        if (e.target.classList.contains('nav__link') && navListEl.classList.contains('nav__list--open')) {
-            navListEl.classList.remove('nav__list--open');
-        }
-    });
-}
-
 // Social icon inline SVGs (48x48 tap targets, accessible)
 function socialSVG(platform) {
     if (platform === 'GitHub') {
