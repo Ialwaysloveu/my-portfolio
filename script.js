@@ -25,10 +25,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             li.className = 'nav__item';
             const isActive = window.location.hash === link.url;
             const iconName = link.iconPath.split('/').pop().replace('.svg', '').replace('nav-', '');
+            const shortLabel = link.shortText || link.text;
             li.innerHTML = `
-                <a href="${link.url}" class="nav__link${isActive ? ' nav__link--active' : ''}" aria-current="${isActive ? 'page' : 'false'}">
+                <a href="${link.url}" class="nav__link" aria-current="${isActive ? 'page' : 'false'}">
                     ${navIconSVG(iconName)}
-                    <span class="nav__label">${link.text}</span>
+                    <span class="nav__label nav__label--full">${link.text}</span>
+                    <span class="nav__label nav__label--short">${shortLabel}</span>
                 </a>
             `;
             navList.appendChild(li);
@@ -345,46 +347,93 @@ document.querySelectorAll('.section-header, .expertise__card, .education__item, 
 // Highlight current section while scrolling using IntersectionObserver
 const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('.nav__link');
+let isScrolling = false;
+let scrollEndTimer;
 
+// Single source of truth: aria-current="page" only (no separate .active class)
 function setActiveLink(id) {
     navLinks.forEach(link => {
         link.removeAttribute('aria-current');
-        link.classList.remove('nav__link--active');
     });
     const active = document.querySelector(`.nav__link[href="#${id}"]`);
     if (active) {
         active.setAttribute('aria-current', 'page');
-        active.classList.add('nav__link--active');
     }
 }
 
-const navObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-            setActiveLink(entry.target.id);
+// Find the section whose top is closest to the top of the viewport (below the header)
+function findActiveSection() {
+    const header = document.getElementById('header');
+    const headerHeight = header ? header.offsetHeight : 64;
+    let closest = null;
+    let closestDist = Infinity;
+    sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        // section top is at or just below the top of viewport (accounting for header)
+        const dist = rect.top - headerHeight;
+        if (dist >= -headerHeight && dist < closestDist) {
+            closestDist = dist;
+            closest = section.id;
         }
     });
-}, { root: null, rootMargin: '-70px 0% -50% 0%', threshold: 0 });
+    // Fallback: at very top, Home is active; at very bottom, last section is active
+    if (!closest && sections.length > 0) {
+        const first = sections[0].id;
+        const last = sections[sections.length - 1].id;
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        if (scrollTop <= 0) closest = first;
+        else closest = last;
+    }
+    return closest;
+}
+
+function onObserverChange() {
+    if (isScrolling) return;
+    const id = findActiveSection();
+    if (id) setActiveLink(id);
+}
+
+const navObserver = new IntersectionObserver((entries) => {
+    onObserverChange();
+}, { root: null, rootMargin: '-64px 0% -64px 0%', threshold: 0 });
 
 sections.forEach((section) => {
     navObserver.observe(section);
 });
 
+// Set initial active link from URL hash
+if (window.location.hash) {
+    setActiveLink(window.location.hash.slice(1));
+}
+
 // Smooth scroll on nav link click (respects prefers-reduced-motion)
+// Pause the observer during scroll so other icons don't flash
 navList.addEventListener('click', (e) => {
     const link = e.target.closest('.nav__link');
     if (!link) return;
     const href = link.getAttribute('href');
     if (href && href.startsWith('#')) {
         e.preventDefault();
+        const id = href.slice(1);
+        setActiveLink(id);
+        isScrolling = true;
         const target = document.querySelector(href);
         if (target) {
             if (reduceMotion) {
                 target.scrollIntoView();
+                isScrolling = false;
+                onObserverChange();
             } else {
                 target.scrollIntoView({ behavior: 'smooth' });
+                const endScroll = () => {
+                    isScrolling = false;
+                    onObserverChange();
+                    window.removeEventListener('scrollend', endScroll);
+                    clearTimeout(scrollEndTimer);
+                };
+                window.addEventListener('scrollend', endScroll);
+                scrollEndTimer = setTimeout(endScroll, 800);
             }
-            setActiveLink(href.slice(1));
         }
     }
 });

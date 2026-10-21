@@ -27,31 +27,37 @@
   "navLinks": [
     {
       "text": "Home",
+      "shortText": "Home",
       "url": "#hero",
       "iconPath": "assets/person/nav-home.svg"
     },
     {
-      "text": "Expertise",
+      "text": "What I'm Learning",
+      "shortText": "Learning",
       "url": "#expertise",
       "iconPath": "assets/person/nav-expertise.svg"
     },
     {
       "text": "Education",
+      "shortText": "Education",
       "url": "#education",
       "iconPath": "assets/person/nav-education.svg"
     },
     {
-      "text": "Work",
+      "text": "Projects",
+      "shortText": "Projects",
       "url": "#works",
       "iconPath": "assets/person/nav-work.svg"
     },
     {
       "text": "Certificates",
+      "shortText": "Certs",
       "url": "#certificates",
       "iconPath": "assets/person/nav-certificates.svg"
     },
     {
       "text": "About",
+      "shortText": "About",
       "url": "#about",
       "iconPath": "assets/person/nav-about.svg"
     }
