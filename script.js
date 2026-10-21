@@ -36,6 +36,38 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
+    // Smooth scroll on nav dock link click (respects prefers-reduced-motion)
+    // Pause the observer during scroll so icons never flash
+    navDockList.addEventListener('click', (e) => {
+        const link = e.target.closest('.nav-dock__link');
+        if (!link) return;
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+            e.preventDefault();
+            const id = href.slice(1);
+            setActive(id);
+            isScrolling = true;
+            const target = document.querySelector(href);
+            if (target) {
+                if (reduceMotion) {
+                    target.scrollIntoView();
+                    isScrolling = false;
+                    onObserverChange();
+                } else {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    const endScroll = () => {
+                        isScrolling = false;
+                        onObserverChange();
+                        window.removeEventListener('scrollend', endScroll);
+                        clearTimeout(scrollEndTimer);
+                    };
+                    window.addEventListener('scrollend', endScroll);
+                    scrollEndTimer = setTimeout(endScroll, 800);
+                }
+            }
+        }
+    });
+
     // Hero Section
     const heroTitle = document.getElementById('hero-title');
     if (heroTitle) heroTitle.textContent = personData.hero.title;
@@ -345,14 +377,13 @@ document.querySelectorAll('.section-header, .expertise__card, .education__item, 
 
 // Highlight current section while scrolling using IntersectionObserver
 const sections = document.querySelectorAll('section[id]');
-const navLinks = document.querySelectorAll('.nav-dock__link');
 const header = document.getElementById('header');
 let isScrolling = false;
 let scrollEndTimer;
 
 // Single source of truth: aria-current="page" only (no separate .active class)
 function setActive(id) {
-    navLinks.forEach(link => {
+    document.querySelectorAll('.nav-dock__link[aria-current="page"]').forEach(link => {
         link.removeAttribute('aria-current');
     });
     const active = document.querySelector(`.nav-dock__link[href="#${id}"]`);
@@ -402,38 +433,6 @@ sections.forEach((section) => {
 if (window.location.hash) {
     setActive(window.location.hash.slice(1));
 }
-
-// Smooth scroll on nav link click (respects prefers-reduced-motion)
-// Pause the observer during scroll so icons never flash
-navDockList.addEventListener('click', (e) => {
-    const link = e.target.closest('.nav-dock__link');
-    if (!link) return;
-    const href = link.getAttribute('href');
-    if (href && href.startsWith('#')) {
-        e.preventDefault();
-        const id = href.slice(1);
-        setActive(id);
-        isScrolling = true;
-        const target = document.querySelector(href);
-        if (target) {
-            if (reduceMotion) {
-                target.scrollIntoView();
-                isScrolling = false;
-                onObserverChange();
-            } else {
-                target.scrollIntoView({ behavior: 'smooth' });
-                const endScroll = () => {
-                    isScrolling = false;
-                    onObserverChange();
-                    window.removeEventListener('scrollend', endScroll);
-                    clearTimeout(scrollEndTimer);
-                };
-                window.addEventListener('scrollend', endScroll);
-                scrollEndTimer = setTimeout(endScroll, 800);
-            }
-        }
-    }
-});
 
 // Top bar background: transparent at top, solid after scroll
 function updateHeaderBg() {
