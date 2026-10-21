@@ -113,10 +113,11 @@
       "HTML",
       "CSS",
       "JavaScript",
-      "JAVA",
+      "Java",
       "Python",
-      "Php",
-      "TensorFlow"
+      "PHP",
+      "TensorFlow",
+      "Jupyter Notebook"
     ]
   },
   "certificates": [
