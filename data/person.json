@@ -92,24 +92,6 @@
         "Xception",
         "MobileNetV2"
       ]
-    },
-    {
-      "title": "[PROJECT NAME]",
-      "description": "[ONE-LINE DESCRIPTION]",
-      "imagePath": "",
-      "tech": [
-        "[TOOLS]"
-      ],
-      "link": "[LINK]"
-    },
-    {
-      "title": "[PROJECT NAME]",
-      "description": "[ONE-LINE DESCRIPTION]",
-      "imagePath": "",
-      "tech": [
-        "[TOOLS]"
-      ],
-      "link": "[LINK]"
     }
   ],
   "about": {
