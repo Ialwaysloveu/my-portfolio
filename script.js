@@ -235,7 +235,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             item.innerHTML = `
                 <img src="assets/person/icon-system.svg" alt="Certificate" class="certificate__icon" onerror="this.style.display='none'">
                 <h3 class="certificate__title">${cert.title}</h3>
-                <p class="certificate__issuer">${cert.issuer}</p>
+                ${cert.issuer ? `<p class="certificate__issuer">${cert.issuer}</p>` : ''}
                 <p class="certificate__date">${cert.date}</p>
                 ${cert.url ? `<a href="${cert.url}" class="certificate__link" target="_blank">View Certificate</a>` : ''}
             `;
