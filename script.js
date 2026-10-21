@@ -249,7 +249,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 // Social icon inline SVGs (48x48 tap targets, accessible)
 function socialSVG(platform) {
     if (platform === 'GitHub') {
-        return '<svg width="48" height="48" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" fill-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-4-4V8l4-4 4 4v4l-4 4zm6-6h-4v-4c0-2.21-1.79-4-4-4S8 9.79 8 12v4H4c-.55 0-1 .45-1 1 0 .93.71 1.93 1.64 2.25.58.21 1.24.34 1.94.34h12c.7 0 1.36-.13 1.94-.34A1.999 1.999 0 0 0 22 13c0-.55-.45-1-1-1z"/></svg>';
+        return '<img src="assets/person/github-logo-icon-free-vector.jpg" alt="GitHub" width="24" height="24" aria-hidden="true" focusable="false" style="display:block;">';
     }
     if (platform === 'Email') {
         return '<svg width="48" height="48" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>';
