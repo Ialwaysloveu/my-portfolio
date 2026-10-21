@@ -72,6 +72,11 @@
       "title": "Full-Stack Development",
       "description": "Practicing how the front end and back end work together by building small projects.",
       "iconPath": "assets/person/icon-web.svg"
+    },
+    {
+      "title": "Front-End Development",
+      "description": "Learning to build responsive web pages using HTML, CSS, and JavaScript.",
+      "iconPath": "assets/person/icon-web.svg"
     }
   ],
   "education": [
