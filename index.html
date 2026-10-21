@@ -32,15 +32,17 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header class="header" id="header">
-        <nav class="nav container" id="nav">
-            <a href="#" class="nav__logo" id="nav-logo"></a>
-            <ul class="nav__list" id="nav-list"></ul>
-            <button class="nav__theme-toggle" aria-label="Switch theme" id="theme-toggle" aria-pressed="false">
-                <span class="theme-toggle__icon" id="theme-toggle-icon"></span>
-            </button>
-        </nav>
-    </header>
+<header class="header" id="header">
+    <nav class="nav container" id="nav" aria-label="Main">
+        <a href="#hero" class="nav__logo" id="nav-logo"></a>
+        <ul class="nav__list" id="nav-list"></ul>
+        <button class="nav__theme-toggle" aria-label="Switch to dark mode" id="theme-toggle" aria-pressed="false">
+            <svg class="theme-toggle__icon" id="theme-toggle-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+        </button>
+    </nav>
+</header>
 
     <main>
         <section class="hero" id="hero">
