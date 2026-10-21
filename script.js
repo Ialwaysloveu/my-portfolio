@@ -23,7 +23,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         personData.navLinks.forEach(link => {
             const li = document.createElement('li');
             li.className = 'nav__item';
-            li.innerHTML = `<a href="${link.url}" class="nav__link"><img src="${link.iconPath}" alt="${link.text}" class="nav__icon"><span class="nav__tooltip">${link.text}</span></a>`;
+            const isActive = window.location.hash === link.url;
+            li.innerHTML = `<a href="${link.url}" class="nav__link${isActive ? ' nav__link--active' : ''}"><img src="${link.iconPath}" alt="${link.text}" class="nav__icon"><span class="nav__tooltip">${link.text}</span></a>`;
             navList.appendChild(li);
         });
     }
