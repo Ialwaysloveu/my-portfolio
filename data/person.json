@@ -75,7 +75,7 @@
     },
     {
       "title": "Front-End Development",
-      "description": "Learning to build responsive web pages using HTML, CSS, and JavaScript.",
+      "description": "Learning to build responsive web pages with React, Next.js and TypeScript.",
       "iconPath": "assets/person/icon-web.svg"
     }
   ],
