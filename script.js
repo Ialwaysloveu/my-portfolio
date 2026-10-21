@@ -364,7 +364,7 @@ const navObserver = new IntersectionObserver((entries) => {
             setActiveLink(entry.target.id);
         }
     });
-}, { root: null, rootMargin: '-64px 0% -60% 0%', threshold: 0 });
+}, { root: null, rootMargin: '-70px 0% -50% 0%', threshold: 0 });
 
 sections.forEach((section) => {
     navObserver.observe(section);
