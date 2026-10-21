@@ -2,9 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
     <meta name="description" id="meta-description" content="">
     <title id="page-title"></title>
+    <script>
+        // Apply saved theme before body renders to avoid flash
+        (function () {
+            try {
+                var saved = localStorage.getItem('theme');
+                var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                var dark = saved ? saved === 'dark' : systemDark;
+                document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+                document.querySelectorAll('meta[name="theme-color"]').forEach(function (m) {
+                    m.content = dark ? '#0f172a' : '#f8fafc';
+                });
+            } catch (e) {
+                // localStorage unavailable; default to system
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                }
+            }
+        })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -17,6 +38,9 @@
             <ul class="nav__list" id="nav-list"></ul>
             <button class="nav__toggle" aria-label="Toggle menu" id="nav-toggle">
                 <span class="nav__toggle-icon"></span>
+            </button>
+            <button class="nav__toggle nav__theme-toggle" aria-label="Switch theme" id="theme-toggle" aria-pressed="false">
+                <span class="theme-toggle__icon" id="theme-toggle-icon"></span>
             </button>
         </nav>
     </header>
@@ -42,8 +66,8 @@
         <section class="expertise" id="expertise">
             <div class="container">
                 <header class="section-header">
-                    <h2 class="section-title" id="expertise-title">Skills &amp; Expertise</h2>
-                    <p class="section-subtitle" id="expertise-subtitle">What I know</p>
+                    <h2 class="section-title" id="expertise-title">What I'm Learning</h2>
+                    <p class="section-subtitle" id="expertise-subtitle">Skills I'm practicing</p>
                 </header>
                 <div class="expertise__grid" id="expertise-grid"></div>
             </div>
@@ -63,7 +87,7 @@
             <div class="container">
                 <header class="section-header">
                     <h2 class="section-title" id="works-title">Projects</h2>
-                    <p class="section-subtitle" id="works-subtitle">Things I have built</p>
+                    <p class="section-subtitle" id="works-subtitle">Things I've built for school and for fun</p>
                 </header>
                 <div class="works__grid" id="works-grid"></div>
             </div>
@@ -73,7 +97,7 @@
             <div class="container">
                 <header class="section-header">
                     <h2 class="section-title" id="certificates-title">Certificates</h2>
-                    <p class="section-subtitle" id="certificates-subtitle">Verified achievements</p>
+                    <p class="section-subtitle" id="certificates-subtitle">Certificates</p>
                 </header>
                 <div class="certificates__list" id="certificates-list"></div>
             </div>
@@ -90,7 +114,7 @@
                     <blockquote class="about__quote" id="about-quote"></blockquote>
 
                     <div class="about__skills" id="about-skills">
-                        <h3 class="about__skills-title" id="skills-title">What I've Learned</h3>
+                        <h3 class="about__skills-title" id="skills-title">Tools I've used so far</h3>
                         <div class="skills__tags" id="skills-bars"></div>
                     </div>
 

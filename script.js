@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             link.href = social.url;
             link.className = 'hero__social-link';
             link.setAttribute('aria-label', social.platform);
-            link.innerHTML = `<img src="${social.iconPath}" alt="${social.platform}" onerror="this.style.display='none'">`;
+            link.innerHTML = socialSVG(social.platform);
             heroSocial.appendChild(link);
         });
     }
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             item.className = 'works__item';
             item.style.animationDelay = `${i * 0.1}s`;
             item.innerHTML = `
-                <img src="${work.imagePath}" alt="${work.title}" class="works__image" onerror="this.src='https://via.placeholder.com/400x300?text=Project'">
+                <img src="${work.imagePath}" alt="${work.title}" class="works__image" onerror="this.style.display='none'">
                 <h3 class="works__item-title">${work.title}</h3>
                 <p class="works__item-desc">${work.description}</p>
             `;
@@ -116,6 +116,25 @@ document.addEventListener('DOMContentLoaded', async () => {
                     techContainer.appendChild(span);
                 });
                 item.appendChild(techContainer);
+            }
+            if (work.link) {
+                const linkContainer = document.createElement('div');
+                linkContainer.className = 'works__links';
+                const viewBtn = document.createElement('a');
+                viewBtn.href = work.link;
+                viewBtn.className = 'btn btn--primary works__btn';
+                viewBtn.textContent = 'View project';
+                viewBtn.target = '_blank';
+                viewBtn.rel = 'noopener noreferrer';
+                linkContainer.appendChild(viewBtn);
+                const srcBtn = document.createElement('a');
+                srcBtn.href = 'https://github.com/Ialwaysloveu';
+                srcBtn.className = 'btn btn--ghost works__btn';
+                srcBtn.textContent = 'Source';
+                srcBtn.target = '_blank';
+                srcBtn.rel = 'noopener noreferrer';
+                linkContainer.appendChild(srcBtn);
+                item.appendChild(linkContainer);
             }
             worksGrid.appendChild(item);
         });
@@ -169,6 +188,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const certificatesList = document.getElementById('certificates-list');
     if (certificatesList && personData.certificates) {
         personData.certificates.forEach((cert, i) => {
+            // CHECK: date vs 2027 graduation.
             const item = document.createElement('div');
             item.className = 'certificate__item';
             item.style.animationDelay = `${i * 0.1}s`;
@@ -197,7 +217,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             link.href = social.url;
             link.className = 'footer__social-link';
             link.setAttribute('aria-label', social.platform);
-            link.innerHTML = `<img src="${social.iconPath}" alt="${social.platform}" onerror="this.style.display='none'">`;
+            link.innerHTML = socialSVG(social.platform);
             footerSocial.appendChild(link);
         });
     }
@@ -249,3 +269,81 @@ if (navListEl) {
         }
     });
 }
+
+// Social icon inline SVGs (48x48 tap targets, accessible)
+function socialSVG(platform) {
+    if (platform === 'GitHub') {
+        return '<svg width="48" height="48" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C-1.086-1.537-.256-1.221-.256-1.221-.256-1.221.268-.721 1.161-.722 1.161-.722 2.048 1.157 2.048 1.157a6.226 6.226 0 0 1 3.488.842c2.713-1.013 3.713-1.442 3.713-1.442a2.37 2.37 0 0 1 2.958 1.277 2.37 2.37 0 0 1 1.303-1.724c.046-1.394 1.106-2.346 2.476-2.476a4.73 4.73 0 0 1 2.062-.272c2.242 0 3.027 1.254 3.027 1.254a1.97 1.97 0 0 1 1.562 1.4c.073.835.012 1.589-.017 1.819-1.12-.519-2.252-.778-3.41-.814C13.286 12.664 11.76 12.976 10.963 13.24c-1.141-1.002-2.747-1.62-4.557-1.62-1.81 0-3.416.618-4.584 1.62-1.158-1.002-2.444-1.62-4.584-1.62a4.73 4.73 0 0 1-2.062.272c-1.37.13-2.43 1.082-2.476 2.476 0 .552.157 1.058.44 1.445a2.37 2.37 0 0 1-.087 1.724A6.2 6.2 0 0 1 0 12c0-6.627 5.373-12 12-12"/></svg>';
+    }
+    if (platform === 'Email') {
+        return '<svg width="48" height="48" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>';
+    }
+    return '<svg width="48" height="48" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7.17-3.77-7.17-7.93 0-.62.08-1.21.21-1.79L9 15v-5c0-.35.1-.69.26-.96l2.7-2.8v-.02l-2.7-2.8c-.13-.14-.24-.31-.26-.49 0-.14.01-.29.01-.43 0-.45.15-.85.42-1.19 1.51-1.94 4.04-2.27 6.09-1.08 1.61.99 3.09 2.96 4.18 4.95v3.4c-1.49-.34-2.98-.69-4.23-.85l-.1-.1c-.14-.04-.3-.07-.45-.08-.14-.01-.29-.01-.43-.01-.26 0-.52.1-.76.25-.28.18-.58.48-.82.89-.13.23-.21.49-.21.77v.05c0 .24.02.48.07.71.08.41.24.79.47 1.11.35.49.81.9 1.38 1.21.57.32 1.24.51 1.97.51.73 0 1.4-.19 1.97-.51.57-.32 1.03-.72 1.38-1.21.23-.32.39-.7.47-1.11.05-.23.07-.47.07-.71 0-.28-.08-.54-.21-.77-.24-.41-.54-.71-.82-.89-.24-.15-.5-.25-.76-.25-.14 0-.29 0-.43.01-.15.01-.31.04-.45.08l-.1.1c-1.25.16-2.74.51-4.23.85v-3.4c1.09-1.99 2.57-3.96 4.18-4.95 2.05-1.19 4.58-.86 6.09 1.08.27.34.42.74.42 1.19 0 .14.01.29.01.43 0 .18-.03.35-.06.5-.07.38-.25.73-.45 1.01-.22.32-.48.61-.77.87l-.02.02v5c0 .35.1.69.26.96l2.7 2.8v.02l-2.7 2.8c-.16.27-.26.61-.26.96v.02c0 .62.08 1.21.21 1.79 0 4.16-3.22 7.44-7.17 7.93-.04.22-.06.44-.06.67v.02c0 .23.02.45.06.67-.03.11-.05.21-.05.32v.01c0 .41.27.76.64.92.24.11.5.17.79.17.08 0 .16-.01.24-.02.39-.05.76-.2 1.08-.47.34-.3.59-.71.79-1.18.17-.41.28-.87.28-1.39v-.01c0-.11-.02-.21-.05-.32v-.02c0-.23-.02-.45-.06-.67 0-.23-.02-.45-.06-.67"/></svg>';
+}
+
+// Theme toggle
+const themeToggle = document.getElementById('theme-toggle');
+const themeToggleIcon = document.getElementById('theme-toggle-icon');
+const root = document.documentElement;
+
+function setTheme(dark) {
+    root.setAttribute('data-theme', dark ? 'dark' : 'light');
+    themeToggle.setAttribute('aria-pressed', dark);
+    themeToggleIcon.textContent = dark ? '☀️' : '🌙';
+    try {
+        localStorage.setItem('theme', dark ? 'dark' : 'light');
+    } catch (e) {
+        // localStorage unavailable
+    }
+    const metas = document.querySelectorAll('meta[name="theme-color"]');
+    metas.forEach((m) => {
+        m.content = dark ? '#0f172a' : '#f8fafc';
+    });
+}
+
+if (themeToggle && themeToggleIcon) {
+    const currentDark = root.getAttribute('data-theme') === 'dark';
+    setTheme(currentDark);
+    themeToggle.addEventListener('click', () => {
+        const dark = root.getAttribute('data-theme') !== 'dark';
+        setTheme(dark);
+    });
+}
+
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    try {
+        if (!localStorage.getItem('theme')) {
+            setTheme(e.matches);
+        }
+    } catch (err) {
+        setTheme(e.matches);
+    }
+});
+
+// Fade-up on scroll (respects prefers-reduced-motion)
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const fadeObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            if (!reduceMotion) {
+                entry.target.classList.add('fade-up');
+            } else {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'none';
+            }
+            fadeObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.section-header, .expertise__card, .education__item, .works__item, .certificate__item').forEach((el) => {
+    if (reduceMotion) {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+    } else {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        fadeObserver.observe(el);
+    }
+});

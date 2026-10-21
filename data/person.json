@@ -2,12 +2,12 @@
   "brand": {
     "logoText": "Angelo.",
     "pageTitle": "Angelo Salivio",
-    "metaDescription": "Angelo Salivio - Full-stack web developer. Building clean, performant web applications with modern frameworks."
+    "metaDescription": "Angelo Salivio - Computer Science student learning web development and AI."
   },
   "hero": {
-    "subtitle": "Creating Web Apps & Exploring AI.",
+    "subtitle": "Computer Science student learning web development and AI.",
     "title": "Angelo Salivio",
-    "description": "Computer Science student who enjoys building web apps and learning about AI, machine learning, and new technologies.",
+    "description": "Hi, I'm Angelo. I'm a Computer Science student who likes building websites and learning about AI.",
     "photoPath": "assets/person/ProfilePicture.png",
     "ctaPrimaryText": "View Work",
     "ctaPrimaryLink": "#works",
@@ -20,9 +20,9 @@
     ]
   },
   "contact": {
-    "focus": "Full-Stack Development & AI/ML",
+    "focus": "Computer Science student",
     "email": "angelosalivio@gmail.com",
-    "location": "Naval, Biliran, Castin St."
+    "location": "Naval, Biliran"
   },
   "navLinks": [
     {
@@ -58,19 +58,19 @@
   ],
   "expertise": [
     {
-      "title": "Front-End Development",
-      "description": "Building responsive, performant web applications with React, Next.js, and TypeScript.",
-      "iconPath": "assets/person/icon-development.svg"
-    },
-    {
-      "title": "AI & Machine Learning",
-      "description": "Developing deep learning models with TensorFlow and Python, specializing in computer vision and image classification.",
-      "iconPath": "assets/person/icon-design.svg"
-    },
-    {
-      "title": "Full-Stack Development",
-      "description": "Building end-to-end web applications with modern frameworks and clean, scalable code.",
-      "iconPath": "assets/person/icon-system.svg"
+    "title": "Front-End Development",
+    "description": "Learning to build responsive web pages with React, Next.js and TypeScript.",
+    "iconPath": "assets/person/icon-development.svg"
+  },
+  {
+    "title": "AI & Machine Learning",
+    "description": "Learning deep learning with TensorFlow and Python, mostly image classification.",
+    "iconPath": "assets/person/icon-design.svg"
+  },
+  {
+    "title": "Full-Stack Development",
+    "description": "Practicing how the front end and back end work together by building small projects.",
+    "iconPath": "assets/person/icon-system.svg"
     }
   ],
   "education": [
@@ -83,7 +83,7 @@
   "works": [
     {
       "title": "AI Waste Classification System",
-      "description": "A CNN-based approach for automated waste type classification using deep learning. Trained and evaluated 5 CNN architectures (Xception, MobileNetV2, InceptionV3, DenseNet, AlexNet) on 6,000 images across 12 waste categories. Xception achieved 91.7% accuracy, demonstrating potential for smart recycling bins and automated sorting systems.",
+      "description": "A school project where I compared 5 CNN models to sort waste into 12 categories using 6,000 images. Xception did best at 91.7% accuracy.",
       "imagePath": "assets/person/work-waste.jpg",
       "tech": [
         "Python",
@@ -92,6 +92,24 @@
         "Xception",
         "MobileNetV2"
       ]
+    },
+    {
+      "title": "[PROJECT NAME]",
+      "description": "[ONE-LINE DESCRIPTION]",
+      "imagePath": "",
+      "tech": [
+        "[TOOLS]"
+      ],
+      "link": "[LINK]"
+    },
+    {
+      "title": "[PROJECT NAME]",
+      "description": "[ONE-LINE DESCRIPTION]",
+      "imagePath": "",
+      "tech": [
+        "[TOOLS]"
+      ],
+      "link": "[LINK]"
     }
   ],
   "about": {
@@ -128,7 +146,7 @@
     }
   ],
   "footer": {
-    "blurb": "Let's build something extraordinary together.",
+    "blurb": "Thanks for visiting! Feel free to say hi.",
     "copyright": "© 2026 Angelo Salivio. All rights reserved.",
     "navLinks": [
       {
