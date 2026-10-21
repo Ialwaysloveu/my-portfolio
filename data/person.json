@@ -64,8 +64,13 @@
   ],
   "expertise": [
     {
-      "title": "Front-End Development",
-      "description": "Learning to build responsive web pages using HTML, CSS, and JavaScript.",
+      "title": "AI & Machine Learning",
+      "description": "Learning deep learning with TensorFlow and Python, mostly image classification.",
+      "iconPath": "assets/person/icon-ai.svg"
+    },
+    {
+      "title": "Full-Stack Development",
+      "description": "Practicing how the front end and back end work together by building small projects.",
       "iconPath": "assets/person/icon-web.svg"
     }
   ],
