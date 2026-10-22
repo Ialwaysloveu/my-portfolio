@@ -2,12 +2,12 @@
   "brand": {
     "logoText": "Angelo.",
     "pageTitle": "Angelo Salivio",
-    "metaDescription": "Angelo Salivio - Computer Science student learning web development and AI."
+    "metaDescription": "Angelo Salivio - Undergraduate Computer Science student learning web development and AI."
   },
   "hero": {
-    "subtitle": "Computer Science student learning web development and AI.",
+    "subtitle": "Undergraduate Computer Science student learning web development and AI.",
     "title": "Angelo Salivio",
-    "description": "Hi, I'm Angelo. I'm a Computer Science student who likes building websites and learning about AI.",
+    "description": "Hi, I'm Angelo. I'm an undergraduate Computer Science student who likes building websites and learning about AI.",
     "photoPath": "assets/person/ProfilePicture.png",
     "ctaPrimaryText": "View Work",
     "ctaPrimaryLink": "#works",
