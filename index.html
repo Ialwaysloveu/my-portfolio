@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="styles.css?v=13">
 </head>
 <body>
+<canvas id="bg-canvas" style="position:fixed;inset:0;z-index:-1;pointer-events:none;"></canvas>
 <header class="header" id="header">
     <div class="top-bar">
         <a href="#hero" class="top-bar__logo" id="top-bar-logo"></a>
@@ -157,6 +158,13 @@
         </div>
     </footer>
 
+    <div class="cert-modal" id="cert-modal" aria-hidden="true">
+        <div class="cert-modal__backdrop" id="cert-modal-backdrop"></div>
+        <div class="cert-modal__content">
+            <button class="cert-modal__close" id="cert-modal-close" aria-label="Close">&times;</button>
+            <iframe class="cert-modal__iframe" id="cert-modal-iframe" src="" title="Certificate"></iframe>
+        </div>
+    </div>
     <script src="script.js?v=13"></script></script></script></script></script></script></script></script></script></script>
 </body>
 </html>

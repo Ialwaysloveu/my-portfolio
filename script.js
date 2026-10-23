@@ -232,13 +232,24 @@ document.addEventListener('DOMContentLoaded', async () => {
             const item = document.createElement('div');
             item.className = 'certificate__item';
             item.style.animationDelay = `${i * 0.1}s`;
+            item.dataset.url = cert.url || '';
             item.innerHTML = `
                 <img src="assets/person/icon-system.svg" alt="Certificate" class="certificate__icon" onerror="this.style.display='none'">
                 <h3 class="certificate__title">${cert.title}</h3>
                 ${cert.issuer ? `<p class="certificate__issuer">${cert.issuer}</p>` : ''}
                 <p class="certificate__date">${cert.date}</p>
-                ${cert.url ? `<a href="${cert.url}" class="certificate__link" target="_blank">View Certificate</a>` : ''}
+                ${cert.url ? `<span class="certificate__link">View Certificate</span>` : ''}
             `;
+            item.addEventListener('click', () => {
+                const modal = document.getElementById('cert-modal');
+                const iframe = document.getElementById('cert-modal-iframe');
+                if (modal && iframe && cert.url) {
+                    iframe.src = cert.url;
+                    modal.classList.add('is-open');
+                    modal.setAttribute('aria-hidden', 'false');
+                }
+            });
+            certificatesList.appendChild(item);
             certificatesList.appendChild(item);
         });
     }
@@ -460,5 +471,72 @@ function updateHeaderBg() {
     header.style.setProperty('--scroll-progress', progress);
 }
 
-window.addEventListener('scroll', updateHeaderBg, { passive: true });
-updateHeaderBg();
+// Animated sci-fi background
+(function () {
+    const canvas = document.getElementById('bg-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let w, h, particles = [];
+    const COUNT = 60;
+    function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+    }
+    function isDark() {
+        return document.documentElement.getAttribute('data-theme') === 'dark';
+    }
+    function init() {
+        particles = [];
+        for (let i = 0; i < COUNT; i++) {
+            particles.push({ x: Math.random() * w, y: Math.random() * h, vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4 });
+        }
+    }
+    function draw() {
+        ctx.clearRect(0, 0, w, h);
+        const dark = isDark();
+        const pColor = dark ? 'rgba(59,130,246,0.7)' : 'rgba(99,102,241,0.5)';
+        const lineColor = dark ? 'rgba(6,182,212,0.15)' : 'rgba(14,165,233,0.12)';
+        for (let i = 0; i < particles.length; i++) {
+            const p = particles[i];
+            p.x += p.vx; p.y += p.vy;
+            if (p.x < 0 || p.x > w) p.vx *= -1;
+            if (p.y < 0 || p.y > h) p.vy *= -1;
+            ctx.fillStyle = pColor;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
+            ctx.fill();
+            for (let j = i + 1; j < particles.length; j++) {
+                const q = particles[j];
+                const d = Math.hypot(p.x - q.x, p.y - q.y);
+                if (d < 120) {
+                    ctx.strokeStyle = lineColor;
+                    ctx.lineWidth = 1 - d / 120;
+                    ctx.beginPath();
+                    ctx.moveTo(p.x, p.y);
+                    ctx.lineTo(q.x, q.y);
+                    ctx.stroke();
+                }
+            }
+        }
+        requestAnimationFrame(draw);
+    }
+    resize();
+    init();
+    window.addEventListener('resize', () => { resize(); init(); });
+    draw();
+})();
+
+// Certificate modal
+const certModal = document.getElementById('cert-modal');
+const certClose = document.getElementById('cert-modal-close');
+const certBackdrop = document.getElementById('cert-modal-backdrop');
+const certIframe = document.getElementById('cert-modal-iframe');
+function closeCertModal() {
+    if (certModal) {
+        certModal.classList.remove('is-open');
+        certModal.setAttribute('aria-hidden', 'true');
+    }
+    if (certIframe) certIframe.src = '';
+}
+if (certClose) certClose.addEventListener('click', closeCertModal);
+if (certBackdrop) certBackdrop.addEventListener('click', closeCertModal);
