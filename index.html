@@ -158,14 +158,21 @@
         </div>
     </footer>
 
-    <div class="cert-modal" id="cert-modal" aria-hidden="true">
+    <div class="cert-modal" id="cert-modal" aria-hidden="true" role="dialog" aria-modal="true">
         <div class="cert-modal__backdrop" id="cert-modal-backdrop"></div>
         <div class="cert-modal__content">
             <button class="cert-modal__close" id="cert-modal-close" aria-label="Close">&times;</button>
-            <iframe class="cert-modal__iframe" id="cert-modal-iframe" src="" title="Certificate"></iframe>
+            <h3 class="cert-modal__title" id="cert-modal-title"></h3>
+            <p class="cert-modal__counter" id="cert-modal-counter"></p>
+            <iframe class="cert-modal__iframe" id="cert-modal-iframe" src="" title=""></iframe>
+            <a class="cert-modal__open" id="cert-modal-open" target="_blank" rel="noopener noreferrer">Open in new tab</a>
+            <a class="cert-modal__mobile" id="cert-modal-mobile" target="_blank" rel="noopener noreferrer">Open PDF</a>
+            <button class="cert-modal__nav cert-modal__prev" id="cert-modal-prev" aria-label="Previous">‹</button>
+            <button class="cert-modal__nav cert-modal__next" id="cert-modal-next" aria-label="Next">›</button>
         </div>
     </div>
     <script src="script.js?v=13"></script></script></script></script></script></script></script></script></script></script>
     <script src="tilt.js"></script>
+    <script src="certificates.js"></script>
 </body>
 </html>
