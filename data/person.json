@@ -11,13 +11,13 @@
     "photoPath": "assets/person/ProfilePicture.png",
     "ctaPrimaryText": "View Work",
     "ctaPrimaryLink": "#works",
-    "socialLinks": [
-      {
-        "platform": "GitHub",
-        "url": "https://github.com/Ialwaysloveu",
-        "iconPath": "assets/person/full256.png"
-      }
-    ]
+    "socials": [
+      { "platform": "GitHub", "url": "https://github.com/Ialwaysloveu" },
+      { "platform": "Facebook", "url": "https://www.facebook.com/angelo.salivio.2025" },
+      { "platform": "Instagram", "url": "https://www.instagram.com/salivioangelo/" },
+      { "platform": "Email", "url": "mailto:angelosalivio@gmail.com" }
+    ],
+    "resume": "assets/resume/Angelo-Salivio-Resume.pdf"
   },
   "contact": {
     "focus": "Computer Science student",
@@ -182,12 +182,11 @@
         "url": "mailto:angelosalivio@gmail.com?subject=Portfolio%20Feedback"
       }
     ],
-    "socialLinks": [
-      {
-        "platform": "GitHub",
-        "url": "https://github.com/Ialwaysloveu",
-        "iconPath": "assets/person/full256.png"
-      }
+    "socials": [
+      { "platform": "GitHub", "url": "https://github.com/Ialwaysloveu" },
+      { "platform": "Facebook", "url": "https://www.facebook.com/angelo.salivio.2025" },
+      { "platform": "Instagram", "url": "https://www.instagram.com/salivioangelo/" },
+      { "platform": "Email", "url": "mailto:angelosalivio@gmail.com" }
     ]
   }
 }

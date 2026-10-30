@@ -35,7 +35,6 @@
 <canvas id="bg-canvas" style="position:fixed;inset:0;z-index:-1;pointer-events:none;"></canvas>
 <header class="header" id="header">
     <div class="top-bar">
-        <a href="#hero" class="top-bar__logo" id="top-bar-logo"></a>
         <button class="top-bar__theme-toggle" aria-label="Switch to dark mode" id="theme-toggle" aria-pressed="false">
             <svg class="theme-toggle__icon" id="theme-toggle-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
@@ -61,7 +60,9 @@
                     <div class="hero__social" id="hero-social"></div>
                 </div>
                 <div class="hero__image">
-                    <img src="" alt="" class="hero__photo" id="hero-photo">
+                    <div class="hero__photo-wrap">
+                        <img src="" alt="" class="hero__photo" id="hero-photo">
+                    </div>
                 </div>
             </div>
         </section>
@@ -166,6 +167,7 @@
             <p class="cert-modal__counter" id="cert-modal-counter"></p>
             <iframe class="cert-modal__iframe" id="cert-modal-iframe" src="" title=""></iframe>
             <a class="cert-modal__open" id="cert-modal-open" target="_blank" rel="noopener noreferrer">Open in new tab</a>
+            <a class="cert-modal__download" id="cert-modal-download" download>Download</a>
             <a class="cert-modal__mobile" id="cert-modal-mobile" target="_blank" rel="noopener noreferrer">Open PDF</a>
             <button class="cert-modal__nav cert-modal__prev" id="cert-modal-prev" aria-label="Previous">‹</button>
             <button class="cert-modal__nav cert-modal__next" id="cert-modal-next" aria-label="Next">›</button>

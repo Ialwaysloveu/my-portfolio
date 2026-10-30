@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (personData.brand.metaDescription) {
         document.getElementById('meta-description').setAttribute('content', personData.brand.metaDescription);
     }
-    document.getElementById('top-bar-logo').textContent = personData.brand.logoText;
     document.getElementById('footer-logo').textContent = personData.brand.logoText;
 
     // Nav dock links
@@ -90,15 +89,40 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Hero Social Links
     const heroSocial = document.getElementById('hero-social');
-    if (heroSocial && personData.hero.socialLinks) {
-        personData.hero.socialLinks.forEach(social => {
+    if (heroSocial && personData.hero.socials) {
+        personData.hero.socials.forEach(social => {
             const link = document.createElement('a');
-            link.href = social.url;
             link.className = 'hero__social-link';
-            link.setAttribute('aria-label', social.platform);
+            if (social.platform === 'Email') {
+                link.href = social.url;
+            } else {
+                link.href = social.url;
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+            }
+            link.setAttribute('aria-label', social.platform === 'Email' ? 'Send an email' : social.platform + ' profile');
             link.innerHTML = socialSVG(social.platform);
             heroSocial.appendChild(link);
         });
+    }
+
+    // Resume button
+    const resumePath = personData.hero.resume;
+    const heroCta = document.querySelector('.hero__cta');
+    if (heroCta && resumePath) {
+        const btn = document.createElement('a');
+        btn.className = 'btn btn--ghost';
+        btn.textContent = 'Resume';
+        btn.href = '#';
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (window.matchMedia('(max-width: 767px)').matches || window.matchMedia('(pointer: coarse)').matches) {
+                window.open(encodeURI(resumePath), '_blank', 'noopener,noreferrer');
+            } else if (window.openResume) {
+                window.openResume(encodeURI(resumePath));
+            }
+        });
+        heroCta.appendChild(btn);
     }
 
     // Expertise
@@ -262,12 +286,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Footer Social Links
     const footerSocial = document.getElementById('footer-social');
-    if (footerSocial && personData.footer.socialLinks) {
-        personData.footer.socialLinks.forEach(social => {
+    if (footerSocial && personData.hero.socials) {
+        personData.hero.socials.forEach(social => {
             const link = document.createElement('a');
-            link.href = social.url;
             link.className = 'footer__social-link';
-            link.setAttribute('aria-label', social.platform);
+            if (social.platform === 'Email') {
+                link.href = social.url;
+            } else {
+                link.href = social.url;
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+            }
+            link.setAttribute('aria-label', social.platform === 'Email' ? 'Send an email' : social.platform + ' profile');
             link.innerHTML = socialSVG(social.platform);
             footerSocial.appendChild(link);
         });
@@ -293,7 +323,13 @@ function socialSVG(platform) {
     if (platform === 'GitHub') {
         return '<svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M10.226 17.284c-2.965-.36-5.054-2.493-5.054-5.256 0-1.123.404-2.336 1.078-3.144-.292-.741-.247-2.314.09-2.965.898-.112 2.111.36 2.83 1.01.853-.269 1.752-.404 2.853-.404 1.1 0 1.999.135 2.807.382.696-.629 1.932-1.1 2.83-.988.315.606.36 2.179.067 2.942.72.854 1.101 2 1.101 3.167 0 2.763-2.089 4.852-5.098 5.234.763.494 1.28 1.572 1.28 2.807v2.336c0 .674.561 1.056 1.235.786 4.066-1.55 7.255-5.615 7.255-10.646C23.5 6.188 18.334 1 11.978 1 5.62 1 .5 6.188.5 12.545c0 4.986 3.167 9.12 7.435 10.669.606.225 1.19-.18 1.19-.786V20.63a2.9 2.9 0 0 1-1.078.224c-1.483 0-2.359-.808-2.987-2.313-.247-.607-.517-.966-1.034-1.033-.27-.023-.359-.135-.359-.27 0-.27.45-.471.898-.471.652 0 1.213.404 1.797 1.235.45.651.921.943 1.483.943.561 0 .92-.202 1.437-.719.382-.381.674-.718.944-.943"/></svg>';
     }
-if (platform === 'Email') {
+if (platform === 'Facebook') {
+        return '<svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>';
+    }
+    if (platform === 'Instagram') {
+        return '<svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>';
+    }
+    if (platform === 'Email') {
         return '<svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M1.75 3h20.5c.966 0 1.75 .784 1.75 1.75v14a1.75 1.75 0 0 1-1.75 1.75H1.75A1.75 1.75 0 0 1 0 18.75v-14C0 3.784.784 3 1.75 3ZM1.5 7.412V18.75c0 .138.112.25.25.25h20.5a.25.25 0 0 0 .25-.25V7.412l-9.52 6.433c-.592.4-1.368.4-1.96 0Zm0-2.662v.852l10.36 7a.25.25 0 0 0 .28 0l10.36-7V4.75a.25.25 0 0 0-.25-.25H1.75a.25.25 0 0 0-.25.25Z"/></svg>';
     }
     return '<svg width="48" height="48" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7.17-3.77-7.17-7.93 0-.62.08-1.21.21-1.79L9 15v-5c0-.35.1-.69.26-.96l2.7-2.8v-.02l-2.7-2.8c-.13-.14-.24-.31-.26-.49 0-.14.01-.29.01-.43 0-.45.15-.85.42-1.19 1.51-1.94 4.04-2.27 6.09-1.08 1.61.99 3.09 2.96 4.18 4.95v3.4c-1.49-.34-2.98-.69-4.23-.85l-.1-.1c-.14-.04-.3-.07-.45-.08-.14-.01-.29-.01-.43-.01-.26 0-.52.1-.76.25-.28.18-.58.48-.82.89-.13.23-.21.49-.21.77v.05c0 .24.02.48.07.71.08.41.24.79.47 1.11.35.49.81.9 1.38 1.21.57.32 1.24.51 1.97.51.73 0 1.4-.19 1.97-.51.57-.32 1.03-.72 1.38-1.21.23-.32.39-.7.47-1.11.05-.23.07-.47.07-.71 0-.28-.08-.54-.21-.77-.24-.41-.54-.71-.82-.89-.24-.15-.5-.25-.76-.25-.14 0-.29 0-.43.01-.15.01-.31.04-.45.08l-.1.1c-1.25.16-2.74.51-4.23.85v-3.4c1.09-1.99 2.57-3.96 4.18-4.95 2.05-1.19 4.58-.86 6.09 1.08.27.34.42.74.42 1.19 0 .14.01.29.01.43 0 .18-.03.35-.06.5-.07.38-.25.73-.45 1.01-.22.32-.48.61-.77.87l-.02.02v5c0 .35.1.69.26.96l2.7 2.8v.02l-2.7 2.8c-.16.27-.26.61-.26.96v.02c0 .62.08 1.21.21 1.79 0 4.16-3.22 7.44-7.17 7.93-.04.22-.06.44-.06.67v.02c0 .23.02.45.06.67-.03.11-.05.21-.05.32v.01c0 .41.27.76.64.92.24.11.5.17.79.17.08 0 .16-.01.24-.02.39-.05.76-.2 1.08-.47.34-.3.59-.71.79-1.18.17-.41.28-.87.28-1.39v-.01c0-.11-.02-.21-.05-.32v-.02c0-.23-.02-.45-.06-.67 0-.23-.02-.45-.06-.67"/></svg>';
@@ -494,8 +530,8 @@ function updateHeaderBg() {
     function draw() {
         ctx.clearRect(0, 0, w, h);
         const dark = isDark();
-        const pColor = dark ? 'rgba(59,130,246,0.7)' : 'rgba(99,102,241,0.5)';
-        const lineColor = dark ? 'rgba(6,182,212,0.15)' : 'rgba(14,165,233,0.12)';
+        const pColor = dark ? 'rgba(59,130,246,0.7)' : 'rgba(99,102,241,1)';
+        const lineColor = dark ? 'rgba(6,182,212,0.15)' : 'rgba(14,165,233,0.4)';
         for (let i = 0; i < particles.length; i++) {
             const p = particles[i];
             p.x += p.vx; p.y += p.vy;
@@ -503,7 +539,7 @@ function updateHeaderBg() {
             if (p.y < 0 || p.y > h) p.vy *= -1;
             ctx.fillStyle = pColor;
             ctx.beginPath();
-            ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
+            ctx.arc(p.x, p.y, dark ? 1.5 : 2.2, 0, Math.PI * 2);
             ctx.fill();
             for (let j = i + 1; j < particles.length; j++) {
                 const q = particles[j];
