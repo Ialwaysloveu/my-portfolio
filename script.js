@@ -530,8 +530,8 @@ function updateHeaderBg() {
     function draw() {
         ctx.clearRect(0, 0, w, h);
         const dark = isDark();
-        const pColor = dark ? 'rgba(59,130,246,0.7)' : 'rgba(99,102,241,1)';
-        const lineColor = dark ? 'rgba(6,182,212,0.15)' : 'rgba(14,165,233,0.4)';
+        const pColor = dark ? 'rgba(59,130,246,0.9)' : 'rgba(99,102,241,1)';
+        const lineColor = dark ? 'rgba(6,182,212,0.25)' : 'rgba(14,165,233,0.4)';
         for (let i = 0; i < particles.length; i++) {
             const p = particles[i];
             p.x += p.vx; p.y += p.vy;
