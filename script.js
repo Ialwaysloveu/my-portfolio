@@ -181,7 +181,22 @@ document.addEventListener('DOMContentLoaded', async () => {
                 });
                 item.appendChild(techContainer);
             }
-            if (work.link) {
+            if (Array.isArray(work.links) && work.links.length) {
+                const linkContainer = document.createElement('div');
+                linkContainer.className = 'works__links';
+                work.links.forEach((l, i) => {
+                    if (!l || !l.url || !/^https?:\/\//i.test(l.url)) return;
+                    const btn = document.createElement('a');
+                    btn.href = l.url;
+                    btn.target = '_blank';
+                    btn.rel = 'noopener noreferrer';
+                    btn.className = i === 0 ? 'btn btn--primary works__btn' : 'btn btn--ghost works__btn';
+                    btn.textContent = l.label || 'Link';
+                    btn.style.minHeight = '44px';
+                    linkContainer.appendChild(btn);
+                });
+                item.appendChild(linkContainer);
+            } else if (work.link) {
                 const linkContainer = document.createElement('div');
                 linkContainer.className = 'works__links';
                 const viewBtn = document.createElement('a');
@@ -199,6 +214,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                 srcBtn.rel = 'noopener noreferrer';
                 linkContainer.appendChild(srcBtn);
                 item.appendChild(linkContainer);
+            }
+            if (work.note) {
+                const note = document.createElement('p');
+                note.className = 'works__note';
+                note.textContent = work.note;
+                item.appendChild(note);
             }
             worksGrid.appendChild(item);
         });

@@ -12,10 +12,22 @@
     "ctaPrimaryText": "View Work",
     "ctaPrimaryLink": "#works",
     "socials": [
-      { "platform": "GitHub", "url": "https://github.com/Ialwaysloveu" },
-      { "platform": "Facebook", "url": "https://www.facebook.com/angelo.salivio.2025" },
-      { "platform": "Instagram", "url": "https://www.instagram.com/salivioangelo/" },
-      { "platform": "Email", "url": "mailto:angelosalivio@gmail.com" }
+      {
+        "platform": "GitHub",
+        "url": "https://github.com/Ialwaysloveu"
+      },
+      {
+        "platform": "Facebook",
+        "url": "https://www.facebook.com/angelo.salivio.2025"
+      },
+      {
+        "platform": "Instagram",
+        "url": "https://www.instagram.com/salivioangelo/"
+      },
+      {
+        "platform": "Email",
+        "url": "mailto:angelosalivio@gmail.com"
+      }
     ],
     "resume": "assets/resume/Angelo-Salivio-Resume.pdf"
   },
@@ -98,6 +110,29 @@
         "Xception",
         "MobileNetV2"
       ]
+    },
+    {
+      "title": "Boarding House Finder",
+      "description": "A full-stack student project where tenants browse boarding houses, search by city and price, and book rooms, and an admin approves bookings and manages listings, rooms, and payments. Built with Next.js, an Express API, Prisma, and PostgreSQL, with JWT login.",
+      "imagePath": "assets/projects/boarding-house-finder.png",
+      "tech": [
+        "Next.js",
+        "TypeScript",
+        "Express",
+        "Prisma",
+        "PostgreSQL"
+      ],
+      "links": [
+        {
+          "label": "Live Demo",
+          "url": "https://frontend-eta-three-25.vercel.app"
+        },
+        {
+          "label": "View Code",
+          "url": "https://github.com/Ialwaysloveu/boarding-house-system/tree/working-app"
+        }
+      ],
+      "note": "The demo server sleeps when unused, so the first load can take up to a minute."
     }
   ],
   "about": {
@@ -151,7 +186,7 @@
   ],
   "footer": {
     "blurb": "Thanks for visiting! Feel free to say hi.",
-    "copyright": "© 2026 Angelo Salivio. All rights reserved.",
+    "copyright": "\u00a9 2026 Angelo Salivio. All rights reserved.",
     "navLinks": [
       {
         "text": "Home",
@@ -183,10 +218,22 @@
       }
     ],
     "socials": [
-      { "platform": "GitHub", "url": "https://github.com/Ialwaysloveu" },
-      { "platform": "Facebook", "url": "https://www.facebook.com/angelo.salivio.2025" },
-      { "platform": "Instagram", "url": "https://www.instagram.com/salivioangelo/" },
-      { "platform": "Email", "url": "mailto:angelosalivio@gmail.com" }
+      {
+        "platform": "GitHub",
+        "url": "https://github.com/Ialwaysloveu"
+      },
+      {
+        "platform": "Facebook",
+        "url": "https://www.facebook.com/angelo.salivio.2025"
+      },
+      {
+        "platform": "Instagram",
+        "url": "https://www.instagram.com/salivioangelo/"
+      },
+      {
+        "platform": "Email",
+        "url": "mailto:angelosalivio@gmail.com"
+      }
     ]
   }
 }

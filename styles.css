@@ -1492,3 +1492,7 @@ section {
   .hero__image::before { filter: blur(0); }
   .hero__photo { animation: none; }
 }
+
+.works__item { display: flex; flex-direction: column; }
+.works__note { font-size: 0.85rem; opacity: 0.7; margin-top: 0.5rem; }
+.works__links { margin-top: auto; }
