@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             item.className = 'works__item';
             item.style.animationDelay = `${i * 0.1}s`;
             item.innerHTML = `
-                <img src="${work.imagePath}" alt="${work.title}" class="works__image" onerror="this.style.display='none'">
+                <img src="${work.imagePath}" alt="${work.alt || work.title}" class="works__image" onerror="this.style.display='none'">
                 <h3 class="works__item-title">${work.title}</h3>
                 <p class="works__item-desc">${work.description}</p>
             `;
@@ -299,8 +299,30 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-    // Footer
-    const footerDesc = document.getElementById('footer-description');
+    // Contact links
+    const contactLinks = document.getElementById('contact-links');
+    if (contactLinks) {
+        const email = personData.contact && personData.contact.email;
+        if (email) {
+            const a = document.createElement('a');
+            a.className = 'btn btn--primary';
+            a.textContent = 'Email me';
+            a.href = 'mailto:' + email;
+            contactLinks.appendChild(a);
+        }
+        if (personData.hero.socials) {
+            personData.hero.socials.forEach(s => {
+                if (s.platform === 'Email') return;
+                const a = document.createElement('a');
+                a.className = 'btn btn--ghost';
+                a.textContent = s.platform;
+                a.href = s.url;
+                a.target = '_blank';
+                a.rel = 'noopener noreferrer';
+                contactLinks.appendChild(a);
+            });
+        }
+    }
     if (footerDesc) footerDesc.textContent = personData.footer.blurb;
     const footerCopy = document.getElementById('footer-copyright');
     if (footerCopy) footerCopy.textContent = personData.footer.copyright;
