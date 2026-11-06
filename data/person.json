@@ -133,6 +133,24 @@
         }
       ],
       "note": "The demo server sleeps when unused, so the first load can take up to a minute."
+    },
+    {
+      "title": "Biliran GIS",
+      "description": "Our thesis project: a web GIS for Biliran province that maps flood susceptibility per barangay, with live rainfall, weather and email alerts.",
+      "imagePath": "assets/projects/biliran-gis.png",
+      "tech": [
+        "Next.js",
+        "TypeScript",
+        "Supabase",
+        "Tailwind"
+      ],
+      "links": [
+        {
+          "label": "Live Demo",
+          "url": "https://biliran-gis.vercel.app"
+        }
+      ],
+      "alt": "Biliran GIS flood susceptibility map"
     }
   ],
   "about": {
