@@ -1,38 +1,38 @@
 # Angelo Salivio — Portfolio
 
-A data-driven portfolio with a modern dark theme, glassmorphism cards, smooth animations, and a fully responsive layout.
+A data-driven personal portfolio built with plain HTML, CSS, and JavaScript. All content is edited in a single file: `data/person.json`.
 
-Change every detail by editing just **one file**: `data/person.json`.
+Live: https://ialwaysloveu.github.io/my-portfolio and https://my-portfolio-jade-omega-84.vercel.app
 
 ## Features
+- Dark/light theme toggle (saved in localStorage)
+- Floating bottom nav dock
+- Hero with profile photo and animated gradient ring
+- Tilt-on-hover cards, certificate viewer pop-up, Resume viewer
+- Responsive layout (phone, tablet, desktop)
+- Projects, skills, education, certificates, about, contact
 
-- **Modern design**: Dark theme with gradient accents, glassmorphism cards, and subtle animations
-- **Fully responsive**: Works on mobile and desktop
-- **Data-driven**: All content loaded from a single JSON file
-- **Smooth interactions**: Staggered animations, hover effects
+## Tech
+HTML5, CSS3, vanilla JavaScript, Three.js (removed), data/person.json. Deployed to GitHub Pages and Vercel.
 
-## How to Customize
+## File structure
+- index.html — markup
+- styles.css — styles
+- script.js — rendering + theme toggle
+- tilt.js — card tilt effect
+- certificates.js — certificate/resume viewer
+- data/person.json — all content
+- assets/ — images, certificates, resume
 
-Edit `data/person.json` to update:
+## Run locally
+Serve the folder with a static server (e.g. VS Code Live Server) and open index.html. Do not open via file:// (fetch needs a server).
 
-- `brand` — logo text, page title, meta description
-- `hero` — subtitle, name, description, photo path, CTA links, social links
-- `contact` — focus area, email, location
-- `navLinks` — navigation links
-- `expertise` — skill/expertise cards (title, description, icon path)
-- `education` — education entries (degree, institution, dates, GPA)
-- `works` — project cards (title, description, tech tags, image path)
-- `about` — intro, quote, skills (list of tags), tools list
-- `footer` — blurb, social links, nav links, copyright
-
-Place any images you reference in `assets/person/`.
-
-## Run Locally
-
-Open `index.html` in your browser. Data is loaded via `fetch()`, so use a local server if needed:
-
-```bash
-npx serve .
-# or
-python -m http.server 8000
-```
+## Rubric checklist
+- HTML Structure: semantic landmarks in index.html
+- CSS Styling: variables in styles.css :root
+- Layout/Responsive: media queries in styles.css
+- Content: sections in index.html
+- Code Quality: organized files above
+- Functionality: links/buttons tested manually
+- Deployment: live URLs above, public repo
+- Defense: see docs/TESTING.md
