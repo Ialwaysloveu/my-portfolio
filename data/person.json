@@ -100,18 +100,6 @@
   ],
   "works": [
     {
-      "title": "AI Waste Classification System",
-      "description": "A school project where I compared 5 CNN models to sort waste into 12 categories using 6,000 images. Xception did best at 91.7% accuracy.",
-      "imagePath": "assets/person/work-waste.jpg",
-      "tech": [
-        "Python",
-        "TensorFlow",
-        "CNN",
-        "Xception",
-        "MobileNetV2"
-      ]
-    },
-    {
       "title": "Boarding House Finder",
       "description": "A full-stack student project where tenants browse boarding houses, search by city and price, and book rooms, and an admin approves bookings and manages listings, rooms, and payments. Built with Next.js, an Express API, Prisma, and PostgreSQL, with JWT login.",
       "imagePath": "assets/projects/boarding-house-finder.png",
@@ -163,48 +151,66 @@
       }
     ],
     "skills": [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "Java",
-      "Python",
-      "PHP",
-      "TensorFlow",
-      "Jupyter Notebook"
+      {
+        "label": "HTML",
+        "iconPath": "assets/icons/html5.svg"
+      },
+      {
+        "label": "CSS",
+        "iconPath": "assets/icons/css.svg"
+      },
+      {
+        "label": "JavaScript",
+        "iconPath": "assets/icons/javascript.svg"
+      },
+      {
+        "label": "Java"
+      },
+      {
+        "label": "Python",
+        "iconPath": "assets/icons/python.svg"
+      },
+      {
+        "label": "PHP",
+        "iconPath": "assets/icons/php.svg"
+      }
     ]
   },
   "certificates": [
     {
       "title": "Class of 2026 Certificate",
-      "issuer": "Biliran Province State University",
+      "issuer": "Mapúa University",
       "date": "2026",
       "url": "assets/certificates/cert-classof2026.pdf"
     },
     {
       "title": "Networking Basics Certificate",
-      "issuer": "Coursera",
+      "issuer": "Cisco Networking Academy",
       "date": "2026",
       "url": "assets/certificates/cert-networking.pdf"
     },
     {
       "title": "404 IT Competition - Certificate of Participation",
+      "issuer": "Integrated OS",
       "date": "2025",
       "url": "assets/certificates/Certificate_of_Participation_-404.pdf"
     },
     {
       "title": "E-Certificate of Completion",
+      "issuer": "Biliran Province State University",
       "date": "2025",
       "url": "assets/certificates/E-Certificate of Completion.pdf"
     },
     {
       "title": "E-Certificate",
+      "issuer": "Biliran Province State University",
       "date": "2025",
       "url": "assets/certificates/E-certificate.pdf"
     }
   ],
   "footer": {
     "blurb": "Thanks for visiting! Feel free to say hi.",
-    "copyright": "\u00a9 2026 Angelo Salivio. All rights reserved.",
+    "copyright": "© 2026 Angelo Salivio",
     "navLinks": [
       {
         "text": "Home",

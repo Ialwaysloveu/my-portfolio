@@ -250,7 +250,21 @@ document.addEventListener('DOMContentLoaded', async () => {
         personData.about.skills.forEach(skill => {
             const tag = document.createElement('span');
             tag.className = 'skill__tag';
-            tag.textContent = typeof skill === 'string' ? skill : skill.label;
+            const name = typeof skill === 'string' ? skill : skill.label;
+            if (typeof skill !== 'string' && skill.iconPath) {
+                const icon = document.createElement('span');
+                icon.className = 'skill__icon-mask';
+                icon.style.maskImage = 'url(' + skill.iconPath + ')';
+                icon.style.webkitMaskImage = 'url(' + skill.iconPath + ')';
+                icon.setAttribute('aria-label', name);
+                tag.appendChild(icon);
+            } else {
+                const icon = document.createElement('span');
+                icon.className = 'skill__icon';
+                icon.textContent = name.charAt(0);
+                icon.setAttribute('aria-label', name);
+                tag.appendChild(icon);
+            }
             skillsContainer.appendChild(tag);
         });
     }
@@ -295,7 +309,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
             });
             certificatesList.appendChild(item);
-            certificatesList.appendChild(item);
         });
     }
 
@@ -323,14 +336,22 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         }
     }
-    if (footerDesc) footerDesc.textContent = personData.footer.blurb;
+    // Footer description & copyright
+    const footerDesc = document.getElementById('footer-description');
+    if (footerDesc && personData.footer && personData.footer.blurb) {
+        footerDesc.textContent = personData.footer.blurb;
+    }
     const footerCopy = document.getElementById('footer-copyright');
-    if (footerCopy) footerCopy.textContent = personData.footer.copyright;
+    if (footerCopy && personData.footer && personData.footer.copyright) {
+        footerCopy.textContent = personData.footer.copyright;
+    }
 
     // Footer Social Links
     const footerSocial = document.getElementById('footer-social');
-    if (footerSocial && personData.hero.socials) {
-        personData.hero.socials.forEach(social => {
+    const footerSocials = (personData.footer && personData.footer.socials) || (personData.hero && personData.hero.socials);
+    if (footerSocial && footerSocials) {
+        footerSocial.innerHTML = '';
+        footerSocials.forEach(social => {
             const link = document.createElement('a');
             link.className = 'footer__social-link';
             if (social.platform === 'Email') {
@@ -348,7 +369,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Footer Nav Links
     const footerNav = document.getElementById('footer-nav');
-    if (footerNav && personData.footer.navLinks) {
+    if (footerNav && personData.footer && personData.footer.navLinks) {
+        footerNav.innerHTML = '';
         const nav = document.createElement('ul');
         nav.className = 'footer__nav-list';
         personData.footer.navLinks.forEach(link => {
@@ -361,7 +383,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
-// Social icon inline SVGs (48x48 tap targets, accessible)
+function skillIcon(name) {
+    return '<span class="skill__icon" aria-hidden="true">' + name.charAt(0) + '</span>';
+}
 function socialSVG(platform) {
     if (platform === 'GitHub') {
         return '<svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M10.226 17.284c-2.965-.36-5.054-2.493-5.054-5.256 0-1.123.404-2.336 1.078-3.144-.292-.741-.247-2.314.09-2.965.898-.112 2.111.36 2.83 1.01.853-.269 1.752-.404 2.853-.404 1.1 0 1.999.135 2.807.382.696-.629 1.932-1.1 2.83-.988.315.606.36 2.179.067 2.942.72.854 1.101 2 1.101 3.167 0 2.763-2.089 4.852-5.098 5.234.763.494 1.28 1.572 1.28 2.807v2.336c0 .674.561 1.056 1.235.786 4.066-1.55 7.255-5.615 7.255-10.646C23.5 6.188 18.334 1 11.978 1 5.62 1 .5 6.188.5 12.545c0 4.986 3.167 9.12 7.435 10.669.606.225 1.19-.18 1.19-.786V20.63a2.9 2.9 0 0 1-1.078.224c-1.483 0-2.359-.808-2.987-2.313-.247-.607-.517-.966-1.034-1.033-.27-.023-.359-.135-.359-.27 0-.27.45-.471.898-.471.652 0 1.213.404 1.797 1.235.45.651.921.943 1.483.943.561 0 .92-.202 1.437-.719.382-.381.674-.718.944-.943"/></svg>';
@@ -570,25 +594,46 @@ function updateHeaderBg() {
             particles.push({ x: Math.random() * w, y: Math.random() * h, vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4 });
         }
     }
+    const heroContent = document.querySelector('.hero__content');
+    function isInsideHeroText(x, y) {
+        if (!heroContent) return false;
+        const rect = heroContent.getBoundingClientRect();
+        const pad = 20;
+        return (
+            x >= rect.left - pad &&
+            x <= rect.right + pad &&
+            y >= rect.top - pad &&
+            y <= rect.bottom + pad
+        );
+    }
+
     function draw() {
         ctx.clearRect(0, 0, w, h);
         const dark = isDark();
-        const pColor = dark ? 'rgba(59,130,246,0.9)' : 'rgba(99,102,241,1)';
-        const lineColor = dark ? 'rgba(6,182,212,0.25)' : 'rgba(14,165,233,0.4)';
+        const pRgb = dark ? '59,130,246' : '99,102,241';
+        const lineRgb = dark ? '6,182,212' : '14,165,233';
+        const basePAlpha = dark ? 0.9 : 1.0;
+        const baseLineAlpha = dark ? 0.25 : 0.4;
         for (let i = 0; i < particles.length; i++) {
             const p = particles[i];
             p.x += p.vx; p.y += p.vy;
             if (p.x < 0 || p.x > w) p.vx *= -1;
             if (p.y < 0 || p.y > h) p.vy *= -1;
-            ctx.fillStyle = pColor;
+
+            const inHero = isInsideHeroText(p.x, p.y);
+            const alpha = inHero ? (basePAlpha * 0.25) : basePAlpha;
+            ctx.fillStyle = `rgba(${pRgb},${alpha})`;
             ctx.beginPath();
             ctx.arc(p.x, p.y, dark ? 1.5 : 2.2, 0, Math.PI * 2);
             ctx.fill();
+
             for (let j = i + 1; j < particles.length; j++) {
                 const q = particles[j];
                 const d = Math.hypot(p.x - q.x, p.y - q.y);
                 if (d < 120) {
-                    ctx.strokeStyle = lineColor;
+                    const lineDim = inHero || isInsideHeroText(q.x, q.y);
+                    const effectiveLineAlpha = lineDim ? (baseLineAlpha * 0.25) : baseLineAlpha;
+                    ctx.strokeStyle = `rgba(${lineRgb},${(1 - d / 120) * effectiveLineAlpha})`;
                     ctx.lineWidth = 1 - d / 120;
                     ctx.beginPath();
                     ctx.moveTo(p.x, p.y);
