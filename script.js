@@ -312,31 +312,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-    // Contact links
-    const contactLinks = document.getElementById('contact-links');
-    if (contactLinks) {
-        const email = personData.contact && personData.contact.email;
-        if (email) {
-            const a = document.createElement('a');
-            a.className = 'btn btn--primary';
-            a.textContent = 'Email me';
-            a.href = 'mailto:' + email;
-            contactLinks.appendChild(a);
-        }
-        if (personData.hero.socials) {
-            personData.hero.socials.forEach(s => {
-                if (s.platform === 'Email') return;
-                const a = document.createElement('a');
-                a.className = 'btn btn--ghost';
-                a.textContent = s.platform;
-                a.href = s.url;
-                a.target = '_blank';
-                a.rel = 'noopener noreferrer';
-                contactLinks.appendChild(a);
-            });
-        }
-    }
-    // Footer description & copyright
+    // Footer
     const footerDesc = document.getElementById('footer-description');
     if (footerDesc && personData.footer && personData.footer.blurb) {
         footerDesc.textContent = personData.footer.blurb;
