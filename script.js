@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         personData.navLinks.forEach(link => {
             const li = document.createElement('li');
             li.className = 'nav-dock__item';
-            const isActive = window.location.hash === link.url;
+            const isActive = (window.location.hash || '#hero') === link.url;
             const iconName = link.iconPath ? link.iconPath.split('/').pop().replace('.svg', '').replace('nav-', '') : getDockIconName(link.text);
             const shortLabel = link.shortText || link.text;
             li.innerHTML = `
@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Smooth scroll on nav dock link click (respects prefers-reduced-motion)
     // Pause the observer during scroll so icons never flash
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     navDockList.addEventListener('click', (e) => {
         const link = e.target.closest('.nav-dock__link');
         if (!link) return;
@@ -87,23 +88,29 @@ document.addEventListener('DOMContentLoaded', async () => {
         ctaPrimary.href = personData.hero.ctaPrimaryLink;
     }
 
+    const email = personData.contact.email;
+    // Build socials with email from contact
+    const socials = (personData.hero.socials || []).map(s => s.platform === 'Email' ? { ...s, url: 'mailto:' + email } : s);
+
+    function createSocialLink(social, className) {
+        const link = document.createElement('a');
+        link.className = className;
+        link.href = social.url;
+        if (social.platform === 'Email') {
+            link.setAttribute('aria-label', 'Send an email');
+        } else {
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            link.setAttribute('aria-label', social.platform + ' profile');
+        }
+        link.innerHTML = socialSVG(social.platform);
+        return link;
+    }
+
     // Hero Social Links
     const heroSocial = document.getElementById('hero-social');
-    if (heroSocial && personData.hero.socials) {
-        personData.hero.socials.forEach(social => {
-            const link = document.createElement('a');
-            link.className = 'hero__social-link';
-            if (social.platform === 'Email') {
-                link.href = social.url;
-            } else {
-                link.href = social.url;
-                link.target = '_blank';
-                link.rel = 'noopener noreferrer';
-            }
-            link.setAttribute('aria-label', social.platform === 'Email' ? 'Send an email' : social.platform + ' profile');
-            link.innerHTML = socialSVG(social.platform);
-            heroSocial.appendChild(link);
-        });
+    if (heroSocial) {
+        socials.forEach(social => heroSocial.appendChild(createSocialLink(social, 'hero__social-link')));
     }
 
     // Resume button
@@ -166,7 +173,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             item.className = 'works__item';
             item.style.animationDelay = `${i * 0.1}s`;
             item.innerHTML = `
-                <img src="${work.imagePath}" alt="${work.alt || work.title}" class="works__image" onerror="this.style.display='none'">
+                <img src="${work.imagePath}" alt="${work.alt || work.title}" class="works__image">
                 <h3 class="works__item-title">${work.title}</h3>
                 <p class="works__item-desc">${work.description}</p>
             `;
@@ -192,7 +199,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                     btn.rel = 'noopener noreferrer';
                     btn.className = i === 0 ? 'btn btn--primary works__btn' : 'btn btn--ghost works__btn';
                     btn.textContent = l.label || 'Link';
-                    btn.style.minHeight = '44px';
                     linkContainer.appendChild(btn);
                 });
                 item.appendChild(linkContainer);
@@ -276,7 +282,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const item = document.createElement('div');
             item.className = 'tool';
             item.innerHTML = `
-                <img src="${tool.iconPath}" alt="${tool.name}" class="tool__icon" onerror="this.style.display='none'">
+                <img src="${tool.iconPath}" alt="${tool.name}" class="tool__icon">
                 <span class="tool__name">${tool.name}</span>
             `;
             toolsList.appendChild(item);
@@ -293,7 +299,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             item.style.animationDelay = `${i * 0.1}s`;
             item.dataset.url = cert.url || '';
             item.innerHTML = `
-                <img src="assets/person/icon-system.svg" alt="Certificate" class="certificate__icon" onerror="this.style.display='none'">
+                <img src="assets/person/icon-system.svg" alt="Certificate" class="certificate__icon">
                 <h3 class="certificate__title">${cert.title}</h3>
                 ${cert.issuer ? `<p class="certificate__issuer">${cert.issuer}</p>` : ''}
                 <p class="certificate__date">${cert.date}</p>
@@ -324,38 +330,29 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Footer Social Links
     const footerSocial = document.getElementById('footer-social');
-    const footerSocials = (personData.footer && personData.footer.socials) || (personData.hero && personData.hero.socials);
-    if (footerSocial && footerSocials) {
-        footerSocial.innerHTML = '';
-        footerSocials.forEach(social => {
-            const link = document.createElement('a');
-            link.className = 'footer__social-link';
-            if (social.platform === 'Email') {
-                link.href = social.url;
-            } else {
-                link.href = social.url;
-                link.target = '_blank';
-                link.rel = 'noopener noreferrer';
-            }
-            link.setAttribute('aria-label', social.platform === 'Email' ? 'Send an email' : social.platform + ' profile');
-            link.innerHTML = socialSVG(social.platform);
-            footerSocial.appendChild(link);
-        });
+    if (footerSocial) {
+        socials.forEach(social => footerSocial.appendChild(createSocialLink(social, 'footer__social-link')));
     }
 
     // Footer Nav Links
     const footerNav = document.getElementById('footer-nav');
-    if (footerNav && personData.footer && personData.footer.navLinks) {
+    if (footerNav) {
         footerNav.innerHTML = '';
-        const nav = document.createElement('ul');
-        nav.className = 'footer__nav-list';
-        personData.footer.navLinks.forEach(link => {
+        const ul = document.createElement('ul');
+        ul.className = 'footer__nav-list';
+        const footerLinks = [...personData.navLinks.map(n => ({ text: n.text, url: n.url })), ...(personData.footer.navLinks || []).map(n => {
+            if (n.subject) return { text: n.text, url: 'mailto:' + email + '?subject=' + encodeURIComponent(n.subject) };
+            return n;
+        })];
+        footerLinks.forEach(link => {
             const li = document.createElement('li');
-            li.className = 'footer__nav-item';
-            li.innerHTML = `<a href="${link.url}" class="footer__nav-link">${link.text}</a>`;
-            nav.appendChild(li);
+            const a = document.createElement('a');
+            a.href = link.url;
+            a.textContent = link.text;
+            li.appendChild(a);
+            ul.appendChild(li);
         });
-        footerNav.appendChild(nav);
+        footerNav.appendChild(ul);
     }
 });
 
@@ -556,7 +553,7 @@ function updateHeaderBg() {
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     let w, h, particles = [];
-    const COUNT = 60;
+    const COUNT = 80;
     function resize() {
         w = canvas.width = window.innerWidth;
         h = canvas.height = window.innerHeight;
@@ -586,10 +583,10 @@ function updateHeaderBg() {
     function draw() {
         ctx.clearRect(0, 0, w, h);
         const dark = isDark();
-        const pRgb = dark ? '59,130,246' : '99,102,241';
-        const lineRgb = dark ? '6,182,212' : '14,165,233';
-        const basePAlpha = dark ? 0.9 : 1.0;
-        const baseLineAlpha = dark ? 0.25 : 0.4;
+        const pRgb = dark ? '147,197,253' : '37,99,235';
+        const lineRgb = dark ? '56,189,248' : '14,165,233';
+        const basePAlpha = 1.0;
+        const baseLineAlpha = dark ? 0.7 : 0.85;
         for (let i = 0; i < particles.length; i++) {
             const p = particles[i];
             p.x += p.vx; p.y += p.vy;
@@ -600,7 +597,7 @@ function updateHeaderBg() {
             const alpha = inHero ? (basePAlpha * 0.25) : basePAlpha;
             ctx.fillStyle = `rgba(${pRgb},${alpha})`;
             ctx.beginPath();
-            ctx.arc(p.x, p.y, dark ? 1.5 : 2.2, 0, Math.PI * 2);
+            ctx.arc(p.x, p.y, dark ? 3 : 3.5, 0, Math.PI * 2);
             ctx.fill();
 
             for (let j = i + 1; j < particles.length; j++) {
@@ -610,7 +607,7 @@ function updateHeaderBg() {
                     const lineDim = inHero || isInsideHeroText(q.x, q.y);
                     const effectiveLineAlpha = lineDim ? (baseLineAlpha * 0.25) : baseLineAlpha;
                     ctx.strokeStyle = `rgba(${lineRgb},${(1 - d / 120) * effectiveLineAlpha})`;
-                    ctx.lineWidth = 1 - d / 120;
+                    ctx.lineWidth = (1 - d / 120) * (dark ? 1.8 : 2.2);
                     ctx.beginPath();
                     ctx.moveTo(p.x, p.y);
                     ctx.lineTo(q.x, q.y);

@@ -20,6 +20,11 @@
   let resumeUrl = '';
   const isMobile = () => window.matchMedia('(max-width: 767px)').matches || window.matchMedia('(pointer: coarse)').matches;
 
+  function toggleHidden(el, hidden) {
+    if (!el) return;
+    el.classList.toggle('is-hidden', hidden);
+  }
+
   function currentTitle() { return mode === 'resume' ? 'Resume' : cards[idx].querySelector('.certificate__title').textContent; }
   function currentUrl() { return mode === 'resume' ? resumeUrl : cards[idx].dataset.url; }
 
@@ -27,19 +32,23 @@
     const t = currentTitle();
     const url = currentUrl();
     titleEl.textContent = t;
-    if (counterEl) counterEl.style.display = mode === 'resume' ? 'none' : '';
-    if (prevBtn) prevBtn.style.display = mode === 'resume' ? 'none' : '';
-    if (nextBtn) nextBtn.style.display = mode === 'resume' ? 'none' : '';
-    if (downloadLink) { downloadLink.style.display = mode === 'resume' ? 'inline-block' : 'none'; downloadLink.href = encodeURI(url); downloadLink.setAttribute('download', ''); }
+    toggleHidden(counterEl, mode === 'resume');
+    toggleHidden(prevBtn, mode === 'resume');
+    toggleHidden(nextBtn, mode === 'resume');
+    toggleHidden(downloadLink, mode !== 'resume');
+    if (downloadLink) { downloadLink.href = encodeURI(url); downloadLink.setAttribute('download', ''); }
     if (openLink) openLink.href = encodeURI(url);
     modal.setAttribute('aria-label', t);
     const enc = encodeURI(url);
     if (isMobile()) {
-      if (iframe) { iframe.style.display = 'none'; iframe.src = ''; }
-      if (mobileBtn) { mobileBtn.style.display = 'inline-flex'; mobileBtn.href = enc; }
+      toggleHidden(iframe, true);
+      if (iframe) iframe.src = '';
+      toggleHidden(mobileBtn, false);
+      if (mobileBtn) mobileBtn.href = enc;
     } else {
-      if (mobileBtn) mobileBtn.style.display = 'none';
-      if (iframe) { iframe.style.display = 'block'; iframe.src = enc; iframe.title = t; }
+      toggleHidden(mobileBtn, true);
+      toggleHidden(iframe, false);
+      if (iframe) { iframe.src = enc; iframe.title = t; }
     }
   }
 
