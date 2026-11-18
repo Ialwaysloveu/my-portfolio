@@ -49,12 +49,6 @@
       "iconPath": "assets/person/nav-expertise.svg"
     },
     {
-      "text": "Education",
-      "shortText": "Education",
-      "url": "#education",
-      "iconPath": "assets/person/nav-education.svg"
-    },
-    {
       "text": "Projects",
       "shortText": "Projects",
       "url": "#works",
@@ -83,13 +77,6 @@
       "title": "Front-End Development",
       "description": "Learning to build responsive web pages with React, Next.js and TypeScript.",
       "iconPath": "assets/person/icon-design.svg"
-    }
-  ],
-  "education": [
-    {
-      "degree": "B.A. Computer Science",
-      "institution": "Biliran Province State University",
-      "date": "2023 - 2027"
     }
   ],
   "works": [

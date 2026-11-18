@@ -1,5 +1,5 @@
 (function () {
-  const cards = '.expertise__card, .education__item, .works__item, .certificate__item';
+  const cards = '.expertise__card, .works__item, .certificate__item';
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
 

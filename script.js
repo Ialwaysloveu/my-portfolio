@@ -10,29 +10,37 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Header & Meta
-    document.getElementById('page-title').textContent = personData.brand.pageTitle;
-    if (personData.brand.metaDescription) {
-        document.getElementById('meta-description').setAttribute('content', personData.brand.metaDescription);
+    try {
+        document.getElementById('page-title').textContent = personData.brand.pageTitle;
+        if (personData.brand.metaDescription) {
+            document.getElementById('meta-description').setAttribute('content', personData.brand.metaDescription);
+        }
+        document.getElementById('footer-logo').textContent = personData.brand.logoText;
+    } catch (e) {
+        console.error('Header/Meta error:', e);
     }
-    document.getElementById('footer-logo').textContent = personData.brand.logoText;
 
     // Nav dock links
-    const navDockList = document.getElementById('nav-dock-list');
-    if (navDockList) {
-        personData.navLinks.forEach(link => {
-            const li = document.createElement('li');
-            li.className = 'nav-dock__item';
-            const isActive = (window.location.hash || '#hero') === link.url;
-            const iconName = link.iconPath ? link.iconPath.split('/').pop().replace('.svg', '').replace('nav-', '') : getDockIconName(link.text);
-            const shortLabel = link.shortText || link.text;
-            li.innerHTML = `
-                <a href="${link.url}" class="nav-dock__link" aria-current="${isActive ? 'page' : 'false'}" aria-label="${link.text}">
-                    ${getDockIcon(link.text)}
-                    <span class="nav-dock__label">${shortLabel}</span>
-                </a>
-            `;
-            navDockList.appendChild(li);
-        });
+    try {
+        const navDockList = document.getElementById('nav-dock-list');
+        if (navDockList) {
+            personData.navLinks.forEach(link => {
+                const li = document.createElement('li');
+                li.className = 'nav-dock__item';
+                const isActive = (window.location.hash || '#hero') === link.url;
+                const iconName = link.iconPath ? link.iconPath.split('/').pop().replace('.svg', '').replace('nav-', '') : getDockIconName(link.text);
+                const shortLabel = link.shortText || link.text;
+                li.innerHTML = `
+                    <a href="${link.url}" class="nav-dock__link" aria-current="${isActive ? 'page' : 'false'}" aria-label="${link.text}">
+                        ${getDockIcon(link.text)}
+                        <span class="nav-dock__label">${shortLabel}</span>
+                    </a>
+                `;
+                navDockList.appendChild(li);
+            });
+        }
+    } catch (e) {
+        console.error('Nav dock error:', e);
     }
 
     // Smooth scroll on nav dock link click (respects prefers-reduced-motion)
@@ -69,290 +77,317 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     // Hero Section
-    const heroTitle = document.getElementById('hero-title');
-    if (heroTitle) heroTitle.textContent = personData.hero.title;
-    const heroSubtitle = document.getElementById('hero-subtitle');
-    if (heroSubtitle) heroSubtitle.textContent = personData.hero.subtitle;
-    const heroDesc = document.getElementById('hero-description');
-    if (heroDesc) heroDesc.textContent = personData.hero.description;
-    const heroPhoto = document.getElementById('hero-photo');
-    if (heroPhoto) {
-        heroPhoto.src = personData.hero.photoPath;
-        heroPhoto.alt = personData.hero.title;
-    }
-
-     // Hero CTAs
-    const ctaPrimary = document.getElementById('hero-cta-primary');
-    if (ctaPrimary) {
-        ctaPrimary.textContent = personData.hero.ctaPrimaryText;
-        ctaPrimary.href = personData.hero.ctaPrimaryLink;
-    }
-
-    const email = personData.contact.email;
-    // Build socials with email from contact
-    const socials = (personData.hero.socials || []).map(s => s.platform === 'Email' ? { ...s, url: 'mailto:' + email } : s);
-
-    function createSocialLink(social, className) {
-        const link = document.createElement('a');
-        link.className = className;
-        link.href = social.url;
-        if (social.platform === 'Email') {
-            link.setAttribute('aria-label', 'Send an email');
-        } else {
-            link.target = '_blank';
-            link.rel = 'noopener noreferrer';
-            link.setAttribute('aria-label', social.platform + ' profile');
+    try {
+        const heroTitle = document.getElementById('hero-title');
+        if (heroTitle) heroTitle.textContent = personData.hero.title;
+        const heroSubtitle = document.getElementById('hero-subtitle');
+        if (heroSubtitle) heroSubtitle.textContent = personData.hero.subtitle;
+        const heroDesc = document.getElementById('hero-description');
+        if (heroDesc) heroDesc.textContent = personData.hero.description;
+        const heroPhoto = document.getElementById('hero-photo');
+        if (heroPhoto) {
+            heroPhoto.src = personData.hero.photoPath;
+            heroPhoto.alt = personData.hero.title;
         }
-        link.innerHTML = socialSVG(social.platform);
-        return link;
-    }
 
-    // Hero Social Links
-    const heroSocial = document.getElementById('hero-social');
-    if (heroSocial) {
-        socials.forEach(social => heroSocial.appendChild(createSocialLink(social, 'hero__social-link')));
-    }
+        // Hero CTAs
+        const ctaPrimary = document.getElementById('hero-cta-primary');
+        if (ctaPrimary) {
+            ctaPrimary.textContent = personData.hero.ctaPrimaryText;
+            ctaPrimary.href = personData.hero.ctaPrimaryLink;
+        }
 
-    // Resume button
-    const resumePath = personData.hero.resume;
-    const heroCta = document.querySelector('.hero__cta');
-    if (heroCta && resumePath) {
-        const btn = document.createElement('a');
-        btn.className = 'btn btn--ghost';
-        btn.textContent = 'Resume';
-        btn.href = '#';
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            if (window.matchMedia('(max-width: 767px)').matches || window.matchMedia('(pointer: coarse)').matches) {
-                window.open(encodeURI(resumePath), '_blank', 'noopener,noreferrer');
-            } else if (window.openResume) {
-                window.openResume(encodeURI(resumePath));
+        const email = personData.contact.email;
+        // Build socials with email from contact
+        const socials = (personData.hero.socials || []).map(s => s.platform === 'Email' ? { ...s, url: 'mailto:' + email } : s);
+
+        function createSocialLink(social, className) {
+            const link = document.createElement('a');
+            link.className = className;
+            link.href = social.url;
+            if (social.platform === 'Email') {
+                link.setAttribute('aria-label', 'Send an email');
+            } else {
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+                link.setAttribute('aria-label', social.platform + ' profile');
             }
-        });
-        heroCta.appendChild(btn);
+            link.innerHTML = socialSVG(social.platform);
+            return link;
+        }
+
+        // Hero Social Links
+        const heroSocial = document.getElementById('hero-social');
+        if (heroSocial) {
+            socials.forEach(social => heroSocial.appendChild(createSocialLink(social, 'hero__social-link')));
+        }
+
+        // Resume button
+        const resumePath = personData.hero.resume;
+        const heroCta = document.querySelector('.hero__cta');
+        if (heroCta && resumePath) {
+            const btn = document.createElement('a');
+            btn.className = 'btn btn--ghost';
+            btn.textContent = 'Resume';
+            btn.href = '#';
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (window.matchMedia('(max-width: 767px)').matches || window.matchMedia('(pointer: coarse)').matches) {
+                    window.open(encodeURI(resumePath), '_blank', 'noopener,noreferrer');
+                } else if (window.openResume) {
+                    window.openResume(encodeURI(resumePath));
+                }
+            });
+            heroCta.appendChild(btn);
+        }
+    } catch (e) {
+        console.error('Hero error:', e);
     }
 
     // Expertise
-    const expertiseGrid = document.getElementById('expertise-grid');
-    if (expertiseGrid) {
-        personData.expertise.forEach((exp, i) => {
-            const card = document.createElement('div');
-            card.className = 'expertise__card';
-            card.style.animationDelay = `${i * 0.1}s`;
-            card.innerHTML = `
-                <img src="${exp.iconPath}" alt="${exp.title}" class="expertise__icon" onerror="this.style.display='none'">
-                <h3 class="expertise__card-title">${exp.title}</h3>
-                <p class="expertise__card-desc">${exp.description}</p>
-            `;
-            expertiseGrid.appendChild(card);
-        });
-    }
-
-    // Education
-    const educationList = document.getElementById('education-list');
-    if (educationList) {
-        personData.education.forEach((edu, i) => {
-            const item = document.createElement('div');
-            item.className = 'education__item';
-            item.style.animationDelay = `${i * 0.1}s`;
-            item.innerHTML = `
-                <div class="education__degree">${edu.degree}</div>
-                <div class="education__institution">${edu.institution}</div>
-                <div class="education__date">${edu.date}</div>
-                ${edu.gpa ? `<div class="education__gpa">GPA: ${edu.gpa}</div>` : ''}
-            `;
-            educationList.appendChild(item);
-        });
+    try {
+        const expertiseGrid = document.getElementById('expertise-grid');
+        if (expertiseGrid) {
+            personData.expertise.forEach((exp, i) => {
+                const card = document.createElement('div');
+                card.className = 'expertise__card';
+                card.style.animationDelay = `${i * 0.1}s`;
+                card.innerHTML = `
+                    <img src="${exp.iconPath}" alt="${exp.title}" class="expertise__icon" onerror="this.style.display='none'">
+                    <h3 class="expertise__card-title">${exp.title}</h3>
+                    <p class="expertise__card-desc">${exp.description}</p>
+                `;
+                expertiseGrid.appendChild(card);
+            });
+        }
+    } catch (e) {
+        console.error('Expertise error:', e);
     }
 
     // Works / Projects
-    const worksGrid = document.getElementById('works-grid');
-    if (worksGrid) {
-        personData.works.forEach((work, i) => {
-            const item = document.createElement('div');
-            item.className = 'works__item';
-            item.style.animationDelay = `${i * 0.1}s`;
-            item.innerHTML = `
-                <img src="${work.imagePath}" alt="${work.alt || work.title}" class="works__image">
-                <h3 class="works__item-title">${work.title}</h3>
-                <p class="works__item-desc">${work.description}</p>
-            `;
-            if (work.tech) {
-                const techContainer = document.createElement('div');
-                techContainer.className = 'works__tech';
-                work.tech.forEach(tech => {
-                    const span = document.createElement('span');
-                    span.className = 'works__tech-tag';
-                    span.textContent = tech;
-                    techContainer.appendChild(span);
-                });
-                item.appendChild(techContainer);
-            }
-            if (Array.isArray(work.links) && work.links.length) {
-                const linkContainer = document.createElement('div');
-                linkContainer.className = 'works__links';
-                work.links.forEach((l, i) => {
-                    if (!l || !l.url || !/^https?:\/\//i.test(l.url)) return;
-                    const btn = document.createElement('a');
-                    btn.href = l.url;
-                    btn.target = '_blank';
-                    btn.rel = 'noopener noreferrer';
-                    btn.className = i === 0 ? 'btn btn--primary works__btn' : 'btn btn--ghost works__btn';
-                    btn.textContent = l.label || 'Link';
-                    linkContainer.appendChild(btn);
-                });
-                item.appendChild(linkContainer);
-            } else if (work.link) {
-                const linkContainer = document.createElement('div');
-                linkContainer.className = 'works__links';
-                const viewBtn = document.createElement('a');
-                viewBtn.href = work.link;
-                viewBtn.className = 'btn btn--primary works__btn';
-                viewBtn.textContent = 'View project';
-                viewBtn.target = '_blank';
-                viewBtn.rel = 'noopener noreferrer';
-                linkContainer.appendChild(viewBtn);
-                const srcBtn = document.createElement('a');
-                srcBtn.href = 'https://github.com/Ialwaysloveu';
-                srcBtn.className = 'btn btn--ghost works__btn';
-                srcBtn.textContent = 'Source';
-                srcBtn.target = '_blank';
-                srcBtn.rel = 'noopener noreferrer';
-                linkContainer.appendChild(srcBtn);
-                item.appendChild(linkContainer);
-            }
-            if (work.note) {
-                const note = document.createElement('p');
-                note.className = 'works__note';
-                note.textContent = work.note;
-                item.appendChild(note);
-            }
-            worksGrid.appendChild(item);
-        });
+    try {
+        const worksGrid = document.getElementById('works-grid');
+        if (worksGrid) {
+            personData.works.forEach((work, i) => {
+                const item = document.createElement('div');
+                item.className = 'works__item';
+                item.style.animationDelay = `${i * 0.1}s`;
+                item.innerHTML = `
+                    <img src="${work.imagePath}" alt="${work.alt || work.title}" class="works__image">
+                    <h3 class="works__item-title">${work.title}</h3>
+                    <p class="works__item-desc">${work.description}</p>
+                `;
+                if (work.tech) {
+                    const techContainer = document.createElement('div');
+                    techContainer.className = 'works__tech';
+                    work.tech.forEach(tech => {
+                        const span = document.createElement('span');
+                        span.className = 'works__tech-tag';
+                        span.textContent = tech;
+                        techContainer.appendChild(span);
+                    });
+                    item.appendChild(techContainer);
+                }
+                if (Array.isArray(work.links) && work.links.length) {
+                    const linkContainer = document.createElement('div');
+                    linkContainer.className = 'works__links';
+                    work.links.forEach((l, i) => {
+                        if (!l || !l.url || !/^https?:\/\//i.test(l.url)) return;
+                        const btn = document.createElement('a');
+                        btn.href = l.url;
+                        btn.target = '_blank';
+                        btn.rel = 'noopener noreferrer';
+                        btn.className = i === 0 ? 'btn btn--primary works__btn' : 'btn btn--ghost works__btn';
+                        btn.textContent = l.label || 'Link';
+                        linkContainer.appendChild(btn);
+                    });
+                    item.appendChild(linkContainer);
+                } else if (work.link) {
+                    const linkContainer = document.createElement('div');
+                    linkContainer.className = 'works__links';
+                    const viewBtn = document.createElement('a');
+                    viewBtn.href = work.link;
+                    viewBtn.className = 'btn btn--primary works__btn';
+                    viewBtn.textContent = 'View project';
+                    viewBtn.target = '_blank';
+                    viewBtn.rel = 'noopener noreferrer';
+                    linkContainer.appendChild(viewBtn);
+                    const srcBtn = document.createElement('a');
+                    srcBtn.href = 'https://github.com/Ialwaysloveu';
+                    srcBtn.className = 'btn btn--ghost works__btn';
+                    srcBtn.textContent = 'Source';
+                    srcBtn.target = '_blank';
+                    srcBtn.rel = 'noopener noreferrer';
+                    linkContainer.appendChild(srcBtn);
+                    item.appendChild(linkContainer);
+                }
+                if (work.note) {
+                    const note = document.createElement('p');
+                    note.className = 'works__note';
+                    note.textContent = work.note;
+                    item.appendChild(note);
+                }
+                worksGrid.appendChild(item);
+            });
+        }
+    } catch (e) {
+        console.error('Works error:', e);
     }
 
     // About
-    const aboutIntro = document.getElementById('about-intro');
-    if (aboutIntro) aboutIntro.textContent = personData.about.intro;
-    const aboutQuote = document.getElementById('about-quote');
-    if (aboutQuote) aboutQuote.textContent = personData.about.quote;
+    try {
+        const aboutIntro = document.getElementById('about-intro');
+        if (aboutIntro) aboutIntro.textContent = personData.about.intro;
+        const aboutQuote = document.getElementById('about-quote');
+        if (aboutQuote) aboutQuote.textContent = personData.about.quote;
+    } catch (e) {
+        console.error('About error:', e);
+    }
 
     // Contact Info (About Section)
-    const focusVal = document.getElementById('info-design-for-value');
-    if (focusVal) focusVal.textContent = personData.contact.focus;
-    const emailVal = document.getElementById('info-email-value');
-    if (emailVal) {
-        emailVal.textContent = personData.contact.email;
-        emailVal.href = `mailto:${personData.contact.email}`;
+    try {
+        const focusVal = document.getElementById('info-design-for-value');
+        if (focusVal) focusVal.textContent = personData.contact.focus;
+        const emailVal = document.getElementById('info-email-value');
+        if (emailVal) {
+            emailVal.textContent = personData.contact.email;
+            emailVal.href = `mailto:${personData.contact.email}`;
+        }
+        const locationVal = document.getElementById('info-location-value');
+        if (locationVal) locationVal.textContent = personData.contact.location;
+    } catch (e) {
+        console.error('Contact info error:', e);
     }
-    const locationVal = document.getElementById('info-location-value');
-    if (locationVal) locationVal.textContent = personData.contact.location;
 
     // Skills (simple list)
-    const skillsContainer = document.getElementById('skills-bars');
-    if (skillsContainer) {
-        skillsContainer.className = 'skills__tags';
-        skillsContainer.innerHTML = '';
-        personData.about.skills.forEach(skill => {
-            const tag = document.createElement('span');
-            tag.className = 'skill__tag';
-            const name = typeof skill === 'string' ? skill : skill.label;
-            if (typeof skill !== 'string' && skill.iconPath) {
-                const icon = document.createElement('span');
-                icon.className = 'skill__icon-mask';
-                icon.style.maskImage = 'url(' + skill.iconPath + ')';
-                icon.style.webkitMaskImage = 'url(' + skill.iconPath + ')';
-                icon.setAttribute('aria-label', name);
-                tag.appendChild(icon);
-            } else {
-                const icon = document.createElement('span');
-                icon.className = 'skill__icon';
-                icon.textContent = name.charAt(0);
-                icon.setAttribute('aria-label', name);
-                tag.appendChild(icon);
-            }
-            skillsContainer.appendChild(tag);
-        });
+    try {
+        const skillsContainer = document.getElementById('skills-bars');
+        if (skillsContainer) {
+            skillsContainer.className = 'skills__tags';
+            skillsContainer.innerHTML = '';
+            personData.about.skills.forEach(skill => {
+                const tag = document.createElement('span');
+                tag.className = 'skill__tag';
+                const name = typeof skill === 'string' ? skill : skill.label;
+                if (typeof skill !== 'string' && skill.iconPath) {
+                    const icon = document.createElement('span');
+                    icon.className = 'skill__icon-mask';
+                    icon.style.maskImage = 'url(' + skill.iconPath + ')';
+                    icon.style.webkitMaskImage = 'url(' + skill.iconPath + ')';
+                    icon.setAttribute('aria-label', name);
+                    tag.appendChild(icon);
+                } else {
+                    const icon = document.createElement('span');
+                    icon.className = 'skill__icon';
+                    icon.textContent = name.charAt(0);
+                    icon.setAttribute('aria-label', name);
+                    tag.appendChild(icon);
+                }
+                skillsContainer.appendChild(tag);
+            });
+        }
+    } catch (e) {
+        console.error('Skills error:', e);
     }
 
     // Tools
-    const toolsList = document.getElementById('tools-list');
-    if (toolsList) {
-        personData.about.tools.forEach(tool => {
-            const item = document.createElement('div');
-            item.className = 'tool';
-            item.innerHTML = `
-                <img src="${tool.iconPath}" alt="${tool.name}" class="tool__icon">
-                <span class="tool__name">${tool.name}</span>
-            `;
-            toolsList.appendChild(item);
-        });
+    try {
+        const toolsList = document.getElementById('tools-list');
+        if (toolsList) {
+            personData.about.tools.forEach(tool => {
+                const item = document.createElement('div');
+                item.className = 'tool';
+                item.innerHTML = `
+                    <img src="${tool.iconPath}" alt="${tool.name}" class="tool__icon">
+                    <span class="tool__name">${tool.name}</span>
+                `;
+                toolsList.appendChild(item);
+            });
+        }
+    } catch (e) {
+        console.error('Tools error:', e);
     }
 
     // Certificates
-    const certificatesList = document.getElementById('certificates-list');
-    if (certificatesList && personData.certificates) {
-        personData.certificates.forEach((cert, i) => {
-            // CHECK: date vs 2027 graduation.
-            const item = document.createElement('div');
-            item.className = 'certificate__item';
-            item.style.animationDelay = `${i * 0.1}s`;
-            item.dataset.url = cert.url || '';
-            item.innerHTML = `
-                <img src="assets/person/icon-system.svg" alt="Certificate" class="certificate__icon">
-                <h3 class="certificate__title">${cert.title}</h3>
-                ${cert.issuer ? `<p class="certificate__issuer">${cert.issuer}</p>` : ''}
-                <p class="certificate__date">${cert.date}</p>
-                ${cert.url ? `<span class="certificate__link">View Certificate</span>` : ''}
-            `;
-            item.addEventListener('click', () => {
-                const modal = document.getElementById('cert-modal');
-                const iframe = document.getElementById('cert-modal-iframe');
-                if (modal && iframe && cert.url) {
-                    iframe.src = cert.url;
-                    modal.classList.add('is-open');
-                    modal.setAttribute('aria-hidden', 'false');
-                }
+    try {
+        const certificatesList = document.getElementById('certificates-list');
+        if (certificatesList && personData.certificates) {
+            personData.certificates.forEach((cert, i) => {
+                // CHECK: date vs 2027 graduation.
+                const item = document.createElement('div');
+                item.className = 'certificate__item';
+                item.style.animationDelay = `${i * 0.1}s`;
+                item.dataset.url = cert.url || '';
+                item.innerHTML = `
+                    <img src="assets/person/icon-system.svg" alt="Certificate" class="certificate__icon">
+                    <h3 class="certificate__title">${cert.title}</h3>
+                    ${cert.issuer ? `<p class="certificate__issuer">${cert.issuer}</p>` : ''}
+                    <p class="certificate__date">${cert.date}</p>
+                    ${cert.url ? `<span class="certificate__link">View Certificate</span>` : ''}
+                `;
+                item.addEventListener('click', () => {
+                    const modal = document.getElementById('cert-modal');
+                    const iframe = document.getElementById('cert-modal-iframe');
+                    if (modal && iframe && cert.url) {
+                        iframe.src = cert.url;
+                        modal.classList.add('is-open');
+                        modal.setAttribute('aria-hidden', 'false');
+                    }
+                });
+                certificatesList.appendChild(item);
             });
-            certificatesList.appendChild(item);
-        });
+        }
+    } catch (e) {
+        console.error('Certificates error:', e);
     }
 
     // Footer
-    const footerDesc = document.getElementById('footer-description');
-    if (footerDesc && personData.footer && personData.footer.blurb) {
-        footerDesc.textContent = personData.footer.blurb;
-    }
-    const footerCopy = document.getElementById('footer-copyright');
-    if (footerCopy && personData.footer && personData.footer.copyright) {
-        footerCopy.textContent = personData.footer.copyright;
+    try {
+        const footerDesc = document.getElementById('footer-description');
+        if (footerDesc && personData.footer && personData.footer.blurb) {
+            footerDesc.textContent = personData.footer.blurb;
+        }
+        const footerCopy = document.getElementById('footer-copyright');
+        if (footerCopy && personData.footer && personData.footer.copyright) {
+            footerCopy.textContent = personData.footer.copyright;
+        }
+    } catch (e) {
+        console.error('Footer error:', e);
     }
 
     // Footer Social Links
-    const footerSocial = document.getElementById('footer-social');
-    if (footerSocial) {
-        socials.forEach(social => footerSocial.appendChild(createSocialLink(social, 'footer__social-link')));
+    try {
+        const footerSocial = document.getElementById('footer-social');
+        if (footerSocial) {
+            socials.forEach(social => footerSocial.appendChild(createSocialLink(social, 'footer__social-link')));
+        }
+    } catch (e) {
+        console.error('Footer social error:', e);
     }
 
     // Footer Nav Links
-    const footerNav = document.getElementById('footer-nav');
-    if (footerNav) {
-        footerNav.innerHTML = '';
-        const ul = document.createElement('ul');
-        ul.className = 'footer__nav-list';
-        const footerLinks = [...personData.navLinks.map(n => ({ text: n.text, url: n.url })), ...(personData.footer.navLinks || []).map(n => {
-            if (n.subject) return { text: n.text, url: 'mailto:' + email + '?subject=' + encodeURIComponent(n.subject) };
-            return n;
-        })];
-        footerLinks.forEach(link => {
-            const li = document.createElement('li');
-            const a = document.createElement('a');
-            a.href = link.url;
-            a.textContent = link.text;
-            li.appendChild(a);
-            ul.appendChild(li);
-        });
-        footerNav.appendChild(ul);
+    try {
+        const footerNav = document.getElementById('footer-nav');
+        if (footerNav) {
+            footerNav.innerHTML = '';
+            const ul = document.createElement('ul');
+            ul.className = 'footer__nav-list';
+            const footerLinks = [...personData.navLinks.map(n => ({ text: n.text, url: n.url })), ...(personData.footer.navLinks || []).map(n => {
+                if (n.subject) return { text: n.text, url: 'mailto:' + email + '?subject=' + encodeURIComponent(n.subject) };
+                return n;
+            })];
+            footerLinks.forEach(link => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = link.url;
+                a.textContent = link.text;
+                li.appendChild(a);
+                ul.appendChild(li);
+            });
+            footerNav.appendChild(ul);
+        }
+    } catch (e) {
+        console.error('Footer nav error:', e);
     }
 });
 
@@ -380,7 +415,6 @@ function getDockIconName(text) {
     if (text.includes('Home')) return 'home';
     if (text.includes('Project')) return 'work';
     if (text.includes('Learn')) return 'expertise';
-    if (text.includes('Educ')) return 'education';
     if (text.includes('Cert')) return 'certificates';
     if (text.includes('About')) return 'about';
     return 'home';
@@ -394,7 +428,6 @@ function navIconSVG(name) {
     const icons = {
         home: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>',
         expertise: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>',
-        education: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg>',
         work: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></svg>',
         certificates: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/><circle cx="12" cy="8" r="6"/></svg>',
         about: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>'
@@ -464,7 +497,7 @@ const fadeObserver = new IntersectionObserver((entries) => {
     });
 }, { threshold: 0.1 });
 
-document.querySelectorAll('.section-header, .expertise__card, .education__item, .works__item, .certificate__item').forEach((el) => {
+document.querySelectorAll('.section-header, .expertise__card, .works__item, .certificate__item').forEach((el) => {
     if (reduceMotion) {
         el.style.opacity = '1';
         el.style.transform = 'none';
