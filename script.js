@@ -21,8 +21,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Nav dock links
+    const navDockList = document.getElementById('nav-dock-list');
     try {
-        const navDockList = document.getElementById('nav-dock-list');
         if (navDockList) {
             personData.navLinks.forEach(link => {
                 const li = document.createElement('li');
@@ -106,6 +106,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (heroPhoto) {
             heroPhoto.src = personData.hero.photoPath;
             heroPhoto.alt = personData.hero.title;
+            heroPhoto.onerror = function () {
+                this.style.display = 'none';
+                const wrap = this.parentElement;
+                if (wrap) {
+                    wrap.innerHTML = '<div style="width:260px;height:260px;border-radius:20%;background:var(--color-bg-card);border:3px solid var(--color-border);display:flex;align-items:center;justify-content:center;font-size:0.875rem;color:var(--color-text-muted);">Photo unavailable</div>';
+                }
+            };
         }
 
         // Hero CTAs
