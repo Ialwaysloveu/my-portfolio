@@ -777,10 +777,10 @@ section {
 .works__image {
     width: 100%;
     height: 180px;
-    object-fit: contain;
+    object-fit: cover;
     background: var(--color-bg-card-hover);
     display: block;
-    filter: brightness(0.9);
+    filter: none;
 }
 
 [data-theme="light"] .works__image {

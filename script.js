@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 item.className = 'works__item';
                 item.style.animationDelay = `${i * 0.1}s`;
                 item.innerHTML = `
-                    <img src="${work.imagePath}" alt="${work.alt || work.title}" class="works__image">
+                    <img src="${work.imagePath}" alt="${work.alt || work.title}" class="works__image" onerror="this.style.display='none'; this.nextElementSibling.style.marginTop='0'">
                     <h3 class="works__item-title">${work.title}</h3>
                     <p class="works__item-desc">${work.description}</p>
                 `;
