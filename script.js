@@ -77,6 +77,24 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     // Hero Section
+    let email;
+    let socials;
+
+    function createSocialLink(social, className) {
+        const link = document.createElement('a');
+        link.className = className;
+        link.href = social.url;
+        if (social.platform === 'Email') {
+            link.setAttribute('aria-label', 'Send an email');
+        } else {
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            link.setAttribute('aria-label', social.platform + ' profile');
+        }
+        link.innerHTML = socialSVG(social.platform);
+        return link;
+    }
+
     try {
         const heroTitle = document.getElementById('hero-title');
         if (heroTitle) heroTitle.textContent = personData.hero.title;
@@ -97,24 +115,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             ctaPrimary.href = personData.hero.ctaPrimaryLink;
         }
 
-        const email = personData.contact.email;
+        email = personData.contact.email;
         // Build socials with email from contact
-        const socials = (personData.hero.socials || []).map(s => s.platform === 'Email' ? { ...s, url: 'mailto:' + email } : s);
-
-        function createSocialLink(social, className) {
-            const link = document.createElement('a');
-            link.className = className;
-            link.href = social.url;
-            if (social.platform === 'Email') {
-                link.setAttribute('aria-label', 'Send an email');
-            } else {
-                link.target = '_blank';
-                link.rel = 'noopener noreferrer';
-                link.setAttribute('aria-label', social.platform + ' profile');
-            }
-            link.innerHTML = socialSVG(social.platform);
-            return link;
-        }
+        socials = (personData.hero.socials || []).map(s => s.platform === 'Email' ? { ...s, url: 'mailto:' + email } : s);
 
         // Hero Social Links
         const heroSocial = document.getElementById('hero-social');
